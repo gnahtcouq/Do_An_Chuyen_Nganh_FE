@@ -53,7 +53,7 @@ class ModalUser extends Component {
         </ModalBody>
         <ModalFooter>
           <Button color="primary" className="px-3" onClick={this.toggle}>
-            Save changes
+            Add
           </Button>{' '}
           <Button color="secondary" className="px-3" onClick={this.toggle}>
             Cancel
