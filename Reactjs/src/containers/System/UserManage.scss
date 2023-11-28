@@ -63,10 +63,11 @@
                 float     : right;
                 font-size : 25px;
                 cursor    : pointer;
+                transition: background-color 0.3s ease;
 
                 &:hover {
                     background-color: transparent !important;
-                    color           : red !important
+                    color           : red !important;
                 }
 
             }
