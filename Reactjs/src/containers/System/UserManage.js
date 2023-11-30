@@ -82,6 +82,7 @@ class UserManage extends Component {
 
   render() {
     let arrUsers = this.state.arrUsers
+
     return (
       <div className="users-container">
         <ModalUser
@@ -99,17 +100,17 @@ class UserManage extends Component {
           </button>
         </div>
         <div className="users-table mt-3 mx-1">
-          <table id="customers">
-            <tbody>
-              <tr>
-                <th>Email</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Address</th>
-                <th>Action</th>
-              </tr>
-              {arrUsers &&
-                arrUsers.map((item, index) => {
+          {arrUsers && arrUsers.length > 0 ? (
+            <table id="customers">
+              <tbody>
+                <tr>
+                  <th>Email</th>
+                  <th>First name</th>
+                  <th>Last name</th>
+                  <th>Address</th>
+                  <th>Action</th>
+                </tr>
+                {arrUsers.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>{item.email}</td>
@@ -130,8 +131,11 @@ class UserManage extends Component {
                     </tr>
                   )
                 })}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          ) : (
+            <p>No users available.</p>
+          )}
         </div>
       </div>
     )
