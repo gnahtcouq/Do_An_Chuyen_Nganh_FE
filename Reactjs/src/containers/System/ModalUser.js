@@ -74,6 +74,11 @@ class ModalUser extends Component {
       }
     }
     return isValid
+
+    // Cách khác
+    // const arrInput = ["email", "password", "address", "lastName", "firstName"];
+    // const checkData = arrInput.every((i) => this.state[i]);
+    // return checkData;
   }
 
   handleAddNewUser = () => {
