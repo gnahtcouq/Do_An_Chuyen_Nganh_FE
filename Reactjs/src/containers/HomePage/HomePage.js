@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import HomeHeader from './HomeHeader'
+import Services from './Section/Services'
 
 class HomePage extends Component {
   render() {
     return (
       <div>
         <HomeHeader />
+        <Services />
+        <div style={{height: '300px'}}></div>
       </div>
     )
   }

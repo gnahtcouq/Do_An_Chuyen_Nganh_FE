@@ -1,0 +1,99 @@
+.section-services {
+    height    : 330px;
+    background: #f5f5f5;
+    border    : 1px solid red;
+
+    .services-container {
+        margin        : 0 190px;
+        display       : flex;
+        flex-direction: column;
+
+        .services-header {
+            height       : 60px;
+            margin-bottom: 30px;
+            padding-top  : 30px;
+
+            .title-section {
+                font-size  : 22px;
+                font-weight: 600;
+            }
+
+            .btn-section {
+                float         : right;
+                display       : block;
+                font-size     : 14px;
+                font-weight   : 600;
+                background    : #fff;
+                color         : #ff8c00;
+                border        : 1px solid #ff8c00;
+                border-radius : 4px;
+                padding       : 8px 16px;
+                margin-left   : 20px;
+                text-transform: uppercase;
+
+                &:hover {
+                    color     : #fff;
+                    background: #ff8c00;
+                }
+            }
+        }
+
+        .services-body {
+            .services-customize {
+
+                .bg-image {
+                    width              : 278px;
+                    height             : 150px;
+                    background         : url('../../../assets/services/services-grooming.avif');
+                    background-position: center center;
+                    background-repeat  : no-repeat;
+                    background-size    : cover;
+                    background-color   : #eee;
+
+                }
+            }
+
+
+            // reset slick slide css
+            .slick-prev {
+                border    : 1px solid orange !important;
+                left      : -10px !important;
+                z-index   : 1 !important;
+                height    : 48px !important;
+                width     : 44px !important;
+                background: #fff !important;
+                border    : 2px solid #d7d7d7 !important;
+
+                &:hover {
+                    background: #d7d7d7 !important;
+                }
+            }
+
+            .slick-prev:before {
+                font-family: FontAwesome !important;
+                content    : "\f060" !important;
+                color      : #000 !important;
+            }
+
+            .slick-next {
+                border    : 1px solid orange !important;
+                right     : -10px !important;
+                z-index   : 1 !important;
+                height    : 48px !important;
+                width     : 44px !important;
+                background: #fff !important;
+                border    : 2px solid #d7d7d7 !important;
+
+                &:hover {
+                    background: #d7d7d7 !important;
+                }
+            }
+
+            .slick-next:before {
+                font-family: FontAwesome !important;
+                content    : "\f061" !important;
+                color      : #000 !important;
+            }
+        }
+    }
+}
