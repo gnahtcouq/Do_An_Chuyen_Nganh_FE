@@ -1,4 +1,17 @@
 {
+    "home-header": {
+        "services": "Dịch vụ",
+        "home-services": "Dịch vụ tại nhà",
+        "book-appointment": "Đặt lịch hẹn",
+        "pet-hotel": "Khách sạn thú cưng",
+        "support": "Hỗ trợ"
+    },
+
+    "banner": {
+        "title": "PET CƯNG"
+    },
+
+    
     "common": {
         "add": "Thêm",
         "edit": "Sửa",

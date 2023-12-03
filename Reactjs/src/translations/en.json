@@ -1,4 +1,16 @@
 {
+    "home-header": {
+        "services": "Services",
+        "home-services": "Home services",
+        "book-appointment": "Book appointment",
+        "pet-hotel": "Pet hotel",
+        "support": "Support"
+    },
+
+    "banner": {
+        "title": "PET CUNG"
+    },
+
     "common": {
         "add": "Add",
         "edit": "Edit",

@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Kablammo&display=swap');
+
 .home-header-container {
     height : 60px;
     width  : 100%;
-    padding: 0 20px;
+    padding: 0 40px;
 
     .home-header-content {
         width  : 100%;
@@ -9,10 +11,10 @@
         display: flex;
 
         .left-content {
-            width      : 25%;
-            display    : flex;
-            border     : 1px solid green;
-            align-items: center;
+            width         : 25%;
+            display       : flex;
+            // border     : 1px solid green;
+            align-items   : center;
 
             .header-logo {
                 background: url('../../assets/logo.svg') center center no-repeat;
@@ -29,19 +31,116 @@
         }
 
         .center-content {
-            width          : 50%;
-            border         : 1px solid orange;
-            display        : flex;
-            justify-content: space-between;
-            align-items    : center;
+            width             : 50%;
+            // border         : 1px solid orange;
+            display           : flex;
+            justify-content   : space-between;
+            align-items       : center;
         }
 
         .right-content {
-            width          : 25%;
-            border         : 1px solid gray;
-            display        : flex;
-            justify-content: center;
-            align-items    : center;
+            width             : 25%;
+            // border         : 1px solid gray;
+            display           : flex;
+            justify-content   : flex-end;
+            align-items       : center;
+        }
+
+        .support {
+            padding-right: 50px;
+            display      : flex;
+            align-items  : center;
+            cursor       : pointer;
+
+            i {
+                font-size   : 15px;
+                margin-right: 5px;
+            }
+        }
+
+        .language-vi {
+            cursor : pointer;
+            opacity: 0.2;
+
+            &.active {
+                opacity: 1;
+
+                span {
+                    color: orange;
+                }
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        .language-en {
+            margin : 0 10px;
+            cursor : pointer;
+            opacity: 0.2;
+
+            &.active {
+                opacity: 1;
+
+                span {
+                    color: blue;
+                }
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+}
+
+.home-header-banner {
+    background         : url('../../assets/header-background.png');
+    height             : 585px;
+    background-repeat  : no-repeat;
+    background-size    : cover;
+    background-position: top;
+    padding            : 15px 0;
+
+
+    .title {
+        text-align   : center;
+        font-size    : 100px;
+        text-shadow  : 1px 1px 1px #333;
+        margin-bottom: 15px;
+        color        : #dd551b;
+        font-family  : 'Kablammo', sans-serif;
+    }
+
+    // .subtitle {
+    //     text-align   : center;
+    //     font-size    : 80px;
+    //     text-shadow  : 1px 1px 1px #333;
+    //     color        : white;
+    //     margin-bottom: 50px;
+    // }
+
+    .search {
+        width          : fit-content;
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        margin         : 0 auto;
+        padding        : 10px;
+        border-radius  : 25px;
+        background     : #fff;
+
+        i {
+            margin: 0 5px;
+        }
+
+        input {
+            height    : 30px;
+            width     : 600px;
+            background: transparent;
+            border    : none;
+            outline   : none;
         }
     }
 }
