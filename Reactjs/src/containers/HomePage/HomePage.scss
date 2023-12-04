@@ -1,0 +1,194 @@
+// reset slick slide css
+.slick-prev {
+    border    : 1px solid orange !important;
+    left      : -10px !important;
+    z-index   : 1 !important;
+    height    : 48px !important;
+    width     : 44px !important;
+    background: #fff !important;
+    border    : 2px solid #d7d7d7 !important;
+
+    &:hover {
+        background: #d7d7d7 !important;
+    }
+}
+
+.slick-prev:before {
+    font-family: FontAwesome !important;
+    content    : "\f060" !important;
+    color      : #000 !important;
+}
+
+.slick-next {
+    border    : 1px solid orange !important;
+    right     : -10px !important;
+    z-index   : 1 !important;
+    height    : 48px !important;
+    width     : 44px !important;
+    background: #fff !important;
+    border    : 2px solid #d7d7d7 !important;
+
+    &:hover {
+        background: #d7d7d7 !important;
+    }
+}
+
+.slick-next:before {
+    font-family: FontAwesome !important;
+    content    : "\f061" !important;
+    color      : #000 !important;
+}
+
+.section-share {
+
+    padding-bottom: 30px;
+
+    &.section-services {
+        background: #f5f5f5;
+    }
+
+    &.section-about {
+        height       : 500px !important;
+        background   : #f5f5f5;
+        border-top   : 1px solid #f5f5f5;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    .section-body {
+        .section-customize {
+            .bg-image {
+                width              : calc(100% - 20px); // Sử dụng calc để tính toán kích thước với khoảng cách giữa các ảnh
+                margin             : 10px; // Thêm khoảng cách giữa các ảnh
+                height             : 150px;
+                background-position: center center;
+                background-repeat  : no-repeat !important;
+                background-size    : cover;
+                background-color   : #eee;
+
+                &.section-services {
+                    background-image: url('../../assets/services/services-grooming.png');
+                }
+
+                &.section-hot-services-package {
+                    background-image: url('../../assets/hot-services-package/hot-services-package.png');
+
+                }
+
+            }
+        }
+
+        .services-title {
+            font-size : 16px;
+            margin    : 10px;
+            text-align: center;
+        }
+    }
+}
+
+.section-share {
+    height: auto;
+
+    .section-container {
+        margin        : 0 190px;
+        display       : flex;
+        flex-direction: column;
+
+        .section-header {
+            height       : 60px;
+            margin-bottom: 30px;
+            padding-top  : 30px;
+
+            .title-section {
+                font-size  : 22px;
+                font-weight: 600;
+            }
+
+            .btn-section {
+                float         : right;
+                display       : block;
+                font-size     : 14px;
+                font-weight   : 600;
+                background    : #fff;
+                color         : #ff8c00;
+                border        : 1px solid #ff8c00;
+                border-radius : 4px;
+                padding       : 8px 16px;
+                margin-left   : 20px;
+                text-transform: uppercase;
+
+                &:hover {
+                    color     : #fff;
+                    background: #ff8c00;
+                }
+            }
+        }
+    }
+}
+
+.section-hot-services-package {
+    .outer-bg {
+        display        : flex;
+        justify-content: center;
+        margin-bottom  : 10px;
+    }
+
+    .section-customize {
+        padding: 5px;
+
+        .customize-border {
+            border : 2px solid #00205b;
+            padding: 20px;
+        }
+    }
+}
+
+.section-about {
+    padding: 0 180px;
+
+    .section-about-header {
+        padding    : 20px 10px;
+        font-size  : 22px;
+        font-weight: 600;
+    }
+
+    .section-about-content {
+        display: flex;
+        width  : 100%;
+
+        .content-left {
+            width     : 60%;
+            text-align: center;
+
+            .bg-image {
+                padding-left       : 20px;
+                width              : 60%;
+                height             : 400px;
+                background-size    : cover;
+                background-position: center center;
+                background-repeat  : no-repeat;
+            }
+        }
+
+        .content-right {
+            width        : 40%;
+            padding-right: 20px;
+
+            p {
+                text-align : justify;
+                font-style : italic;
+                padding-top: 15px;
+            }
+        }
+    }
+}
+
+.home-footer {
+    text-align : center;
+    padding-top: 10px;
+
+    a {
+        text-decoration: none;
+    }
+
+
+}
