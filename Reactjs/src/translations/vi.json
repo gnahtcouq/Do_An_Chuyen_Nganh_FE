@@ -19,7 +19,7 @@
         "decentralize": "Phân quyền",
         "close": "Đóng",
         "save": "Lưu",
-        "refresh": "Refresh",
+        "refresh": "Làm mới",
         "accept": "Chấp nhận",
         "confirm": "Xác nhận",
         "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
@@ -44,7 +44,7 @@
             "system-administrator": {
                 "header": "Quản trị hệ thống",
                 "user-manage": "Quản lý người sử dụng",
-                "product-manage": "Quản lý gói",
+                "user-redux": "Quản lý user redux",
                 "register-package-group-or-account": "Đăng ký gói dịch vụ cho nhóm/tài khoản"
             },
             "system-parameter": {
