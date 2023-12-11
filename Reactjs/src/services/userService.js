@@ -6,7 +6,7 @@ const handleLoginApi = (userEmail, userPassword) => {
 
 const getAllUsers = (inputId) => {
   // template string
-  return axios.get(`/api/get-all-users?id=${inputId}`, {id: inputId})
+  return axios.get(`/api/get-all-users?id=${inputId}`)
 }
 
 const createNewUserService = (data) => {
@@ -26,10 +26,15 @@ const editUserService = (inputData) => {
   return axios.put('/api/edit-user', inputData)
 }
 
+const getAllCodeService = (inputType) => {
+  return axios.get(`/api/allcode?type=${inputType}`)
+}
+
 export {
   handleLoginApi,
   getAllUsers,
   createNewUserService,
   deleteUserService,
-  editUserService
+  editUserService,
+  getAllCodeService
 }
