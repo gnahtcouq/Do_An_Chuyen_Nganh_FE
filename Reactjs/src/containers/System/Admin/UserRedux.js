@@ -34,14 +34,18 @@ class UserRedux extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.genderRedux !== this.props.genderRedux) {
+      let arrGenders = this.props.genderRedux
       this.setState({
-        genderArr: this.props.genderRedux
+        genderArr: this.props.genderRedux,
+        gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : ''
       })
     }
 
     if (prevProps.roleRedux !== this.props.roleRedux) {
+      let arrRoles = this.props.roleRedux
       this.setState({
-        roleArr: this.props.roleRedux
+        roleArr: this.props.roleRedux,
+        role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : ''
       })
     }
   }
@@ -52,7 +56,8 @@ class UserRedux extends Component {
     if (file) {
       let objectUrl = URL.createObjectURL(file)
       this.setState({
-        previewImgURL: objectUrl
+        previewImgURL: objectUrl,
+        avatar: file
       })
     }
   }
@@ -64,17 +69,49 @@ class UserRedux extends Component {
     })
   }
 
-  handleSaveUser = () => {}
+  handleSaveUser = () => {
+    let isValid = this.checkValidateInput()
+    if (isValid === false) return
 
-  onChangeInput = () => {
-    // email: '',
-    //   password: '',
-    //   firstName: '',
-    //   lastName: '',
-    //   phoneNumber: '',
-    //   address: '',
-    //   role: '',
-    //   avatar: ''
+    // fire redux action
+    this.props.createNewUser({
+      email: this.state.email,
+      password: this.state.password,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      address: this.state.address,
+      phonenumber: this.state.phoneNumber,
+      gender: this.state.gender,
+      roleId: this.state.role
+    })
+  }
+
+  checkValidateInput = () => {
+    let isValid = true
+    let arrCheck = [
+      'email',
+      'password',
+      'firstName',
+      'lastName',
+      'phoneNumber',
+      'address'
+    ]
+    for (let i = 0; i < arrCheck.length; i++) {
+      if (!this.state[arrCheck[i]]) {
+        isValid = false
+        alert('Missing parameter: ' + arrCheck[i])
+        break
+      }
+    }
+    return isValid
+  }
+
+  onChangeInput = (event, id) => {
+    let copyState = {...this.state}
+    copyState[id] = event.target.value
+    this.setState({
+      ...copyState
+    })
   }
 
   render() {
@@ -83,8 +120,16 @@ class UserRedux extends Component {
     let language = this.props.language
     let isGetGenders = this.props.isLoadingGender
 
-    let {email, password, firstName, lastName, phoneNumber, address, role} =
-      this.state
+    let {
+      email,
+      password,
+      firstName,
+      lastName,
+      phoneNumber,
+      address,
+      role,
+      avatar
+    } = this.state
 
     return (
       <div className="user-redux-container">
@@ -197,7 +242,7 @@ class UserRedux extends Component {
                         genders.length > 0 &&
                         genders.map((item, index) => {
                           return (
-                            <option key={index}>
+                            <option key={index} value={item.key}>
                               {language === LANGUAGES.VI
                                 ? item.valueVi
                                 : item.valueEn}
@@ -235,7 +280,7 @@ class UserRedux extends Component {
                         roles.length > 0 &&
                         roles.map((item, index) => {
                           return (
-                            <option key={index}>
+                            <option key={index} value={item.key}>
                               {language === LANGUAGES.VI
                                 ? item.valueVi
                                 : item.valueEn}
@@ -296,7 +341,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getGenderStart: () => dispatch(actions.fetchGenderStart()),
-    getRoleStart: () => dispatch(actions.fetchRoleStart())
+    getRoleStart: () => dispatch(actions.fetchRoleStart()),
+    createNewUser: (data) => dispatch(actions.createNewUser(data))
   }
 }
 
