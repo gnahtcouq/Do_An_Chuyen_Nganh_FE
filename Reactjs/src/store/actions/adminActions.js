@@ -3,7 +3,8 @@ import {
   getAllCodeService,
   createNewUserService,
   getAllUsers,
-  deleteUserService
+  deleteUserService,
+  editUserService
 } from '../../services/userService'
 import {toast} from 'react-toastify'
 
@@ -127,6 +128,7 @@ export const deleteUser = (userId) => {
         dispatch(saveUserFail())
       }
     } catch (error) {
+      toast.error('Delete user error!')
       dispatch(saveUserFail())
       console.log('saveUserFail error', error)
     }
@@ -139,4 +141,32 @@ export const deleteUserSuccess = (data) => ({
 
 export const deleteUserFail = () => ({
   type: actionTypes.FETCH_ALL_USERS_FAIL
+})
+
+export const editUser = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await editUserService(data)
+      if (res && res.errCode === 0) {
+        toast.success('Update user success!')
+        dispatch(editUserSuccess())
+        dispatch(fetchAllUsersStart())
+      } else {
+        toast.error('Update user error!')
+        dispatch(editUserFail())
+      }
+    } catch (error) {
+      toast.error('Update user error!')
+      dispatch(editUserFail())
+      console.log('saveUserFail error', error)
+    }
+  }
+}
+
+export const editUserSuccess = (data) => ({
+  type: actionTypes.EDIT_USER_SUCCESS
+})
+
+export const editUserFail = () => ({
+  type: actionTypes.EDIT_USER_FAIL
 })
