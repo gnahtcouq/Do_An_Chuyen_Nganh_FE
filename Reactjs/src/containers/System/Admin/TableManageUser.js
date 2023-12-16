@@ -38,11 +38,21 @@ class TableManageUser extends Component {
       <table id="TableManageUser">
         <tbody>
           <tr>
-            <th>Email</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Address</th>
-            <th>Action</th>
+            <th>
+              <FormattedMessage id="manage-user.email" />
+            </th>
+            <th>
+              <FormattedMessage id="manage-user.first-name" />
+            </th>
+            <th>
+              <FormattedMessage id="manage-user.last-name" />
+            </th>
+            <th>
+              <FormattedMessage id="manage-user.address" />
+            </th>
+            <th>
+              <FormattedMessage id="manage-user.action" />
+            </th>
           </tr>
           {arrUsers &&
             arrUsers.length > 0 &&

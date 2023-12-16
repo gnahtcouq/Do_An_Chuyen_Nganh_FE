@@ -35,6 +35,7 @@
         "role": "Vai trò",
         "image": "Ảnh đại diện",
         "save": "Lưu người dùng",
-        "edit" : "Lưu thay đổi"
+        "edit" : "Lưu thay đổi",
+        "action" : "Hành động"
     }
 }
