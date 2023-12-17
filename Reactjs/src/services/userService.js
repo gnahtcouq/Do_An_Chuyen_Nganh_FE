@@ -30,11 +30,16 @@ const getAllCodeService = (inputType) => {
   return axios.get(`/api/allcode?type=${inputType}`)
 }
 
+const getTopStaffHomeService = (limit) => {
+  return axios.get(`/api/top-staff-home?limit=${limit}`)
+}
+
 export {
   handleLoginApi,
   getAllUsers,
   createNewUserService,
   deleteUserService,
   editUserService,
-  getAllCodeService
+  getAllCodeService,
+  getTopStaffHomeService
 }

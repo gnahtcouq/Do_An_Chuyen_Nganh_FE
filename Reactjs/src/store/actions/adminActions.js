@@ -4,7 +4,8 @@ import {
   createNewUserService,
   getAllUsers,
   deleteUserService,
-  editUserService
+  editUserService,
+  getTopStaffHomeService
 } from '../../services/userService'
 import {toast} from 'react-toastify'
 
@@ -207,3 +208,28 @@ export const editUserSuccess = (data) => ({
 export const editUserFail = () => ({
   type: actionTypes.EDIT_USER_FAIL
 })
+
+// let res1 = await getTopStaffHomeService('')
+
+export const fetchTopStaffs = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getTopStaffHomeService('')
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_TOP_STAFFS_SUCCESS,
+          dataStaff: res.data
+        })
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_TOP_STAFFS_FAIL
+        })
+      }
+    } catch (error) {
+      console.log('fetchTopStaffs error', error)
+      dispatch({
+        type: actionTypes.FETCH_TOP_STAFFS_FAIL
+      })
+    }
+  }
+}

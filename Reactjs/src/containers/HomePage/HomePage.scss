@@ -74,6 +74,12 @@
 
                 }
 
+                &.section-out-standing-staff {
+                    width        : 120px;
+                    height       : 120px;
+                    border-radius: 50%;
+                }
+
             }
         }
 
@@ -125,7 +131,8 @@
     }
 }
 
-.section-hot-services-package {
+.section-hot-services-package,
+.section-out-standing-staff {
     .outer-bg {
         display        : flex;
         justify-content: center;
@@ -174,6 +181,7 @@
             padding-right: 20px;
 
             p {
+                font-size  : 16px;
                 text-align : justify;
                 font-style : italic;
                 padding-top: 15px;
@@ -189,6 +197,4 @@
     a {
         text-decoration: none;
     }
-
-
 }

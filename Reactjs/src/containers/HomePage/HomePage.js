@@ -8,6 +8,7 @@ import HomeFooter from './HomeFooter'
 import './HomePage.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import OutStandingStaff from './Section/OutStandingStaff'
 
 class HomePage extends Component {
   render() {
@@ -50,6 +51,7 @@ class HomePage extends Component {
         <HomeHeader />
         <Services settings={settings} />
         <HotServicesPackage settings={settings} />
+        <OutStandingStaff settings={settings} />
         <About />
         <HomeFooter />
       </div>
