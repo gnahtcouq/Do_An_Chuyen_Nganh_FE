@@ -132,6 +132,26 @@ class UserRedux extends Component {
     }
   }
 
+  // checkValidateInput = () => {
+  //   let isValid = true
+  //   let arrCheck = [
+  //     'email',
+  //     'password',
+  //     'firstName',
+  //     'lastName',
+  //     'phoneNumber',
+  //     'address'
+  //   ]
+  //   for (let i = 0; i < arrCheck.length; i++) {
+  //     if (!this.state[arrCheck[i]]) {
+  //       isValid = false
+  //       alert('Missing parameter: ' + arrCheck[i])
+  //       break
+  //     }
+  //   }
+  //   return isValid
+  // }
+
   checkValidateInput = () => {
     let isValid = true
     let arrCheck = [
@@ -142,14 +162,55 @@ class UserRedux extends Component {
       'phoneNumber',
       'address'
     ]
+
     for (let i = 0; i < arrCheck.length; i++) {
       if (!this.state[arrCheck[i]]) {
         isValid = false
-        alert('Missing parameter: ' + arrCheck[i])
+        alert(`Missing parameter: ${arrCheck[i]}`)
+        break
+      }
+
+      // Additional validations
+      if (arrCheck[i] === 'email' && !this.isValidEmail(this.state.email)) {
+        isValid = false
+        alert('Invalid email format')
+        break
+      }
+
+      if (
+        arrCheck[i] === 'phoneNumber' &&
+        !this.isValidPhoneNumber(this.state.phoneNumber)
+      ) {
+        isValid = false
+        alert('Invalid phone number format')
+        break
+      }
+
+      if (!this.isValidInputString(this.state[arrCheck[i]])) {
+        isValid = false
+        alert(`Invalid ${arrCheck[i]} format`)
         break
       }
     }
+
     return isValid
+  }
+
+  isValidEmail = (email) => {
+    // Regular expression for a basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  isValidPhoneNumber = (phoneNumber) => {
+    // Regular expression for a basic phone number validation
+    const phoneRegex = /^\d{10,}$/ // Assumes a 10-digit phone number
+    return phoneRegex.test(phoneNumber)
+  }
+
+  isValidInputString = (input) => {
+    // Check if the input contains only whitespace characters
+    return input.trim() !== ''
   }
 
   onChangeInput = (event, id) => {
@@ -179,6 +240,23 @@ class UserRedux extends Component {
       previewImgURL: imageBase64,
       action: CRUD_ACTIONS.EDIT,
       userEditId: user.id
+    })
+  }
+
+  handleCancel = () => {
+    this.setState({
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      address: '',
+      gender:
+        this.state.genderArr.length > 0 ? this.state.genderArr[0].key : '',
+      role: this.state.roleArr.length > 0 ? this.state.roleArr[0].key : '',
+      avatar: '',
+      action: CRUD_ACTIONS.CREATE,
+      previewImgURL: ''
     })
   }
 
@@ -394,6 +472,15 @@ class UserRedux extends Component {
                     <FormattedMessage id="manage-user.save" />
                   )}
                 </button>
+
+                {this.state.action === CRUD_ACTIONS.EDIT && (
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => this.handleCancel()}
+                  >
+                    <FormattedMessage id="manage-user.cancel" />
+                  </button>
+                )}
               </div>
 
               <div className="col-12 mb-5">

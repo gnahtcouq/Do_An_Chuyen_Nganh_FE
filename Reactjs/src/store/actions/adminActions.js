@@ -61,17 +61,54 @@ export const fetchRoleFail = () => ({
   type: actionTypes.FETCH_ROLE_FAIL
 })
 
+// export const createNewUser = (data) => {
+//   return async (dispatch, getState) => {
+//     try {
+//       let res = await createNewUserService(data)
+//       if (res && res.errCode === 0) {
+//         toast.success('Create new user success!')
+//         dispatch(saveUserSuccess())
+//         dispatch(fetchAllUsersStart())
+//       } else {
+//         toast.error('Create new user error!')
+//         dispatch(saveUserFail())
+//       }
+//     } catch (error) {
+//       dispatch(saveUserFail())
+//       console.log('saveUserFail error', error)
+//     }
+//   }
+// }
+
 export const createNewUser = (data) => {
   return async (dispatch, getState) => {
     try {
-      let res = await createNewUserService(data)
-      if (res && res.errCode === 0) {
-        toast.success('Create new user success!')
-        dispatch(saveUserSuccess())
-        dispatch(fetchAllUsersStart())
+      // Fetch all users
+      let usersRes = await getAllUsers('ALL')
+      if (usersRes && usersRes.errCode === 0) {
+        // Check if a user with the same email already exists
+        const isEmailExists = usersRes.users.some(
+          (user) => user.email === data.email
+        )
+
+        if (isEmailExists) {
+          toast.error('Email already exists!') // Display an error message
+          return
+        }
+
+        // If email is unique, proceed to create a new user
+        let res = await createNewUserService(data)
+        if (res && res.errCode === 0) {
+          toast.success('Create new user success!')
+          dispatch(saveUserSuccess())
+          dispatch(fetchAllUsersStart())
+        } else {
+          toast.error('Create new user error!')
+          dispatch(saveUserFail())
+        }
       } else {
-        toast.error('Create new user error!')
-        dispatch(saveUserFail())
+        toast.error('Fetch all users error!')
+        dispatch(fetchAllUsersFail())
       }
     } catch (error) {
       dispatch(saveUserFail())

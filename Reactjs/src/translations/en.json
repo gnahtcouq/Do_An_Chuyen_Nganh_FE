@@ -36,6 +36,7 @@
         "image": "Avatar",
         "save": "Save user",
         "edit" : "Save changes",
+        "cancel" : "Cancle",
         "action" : "Action"
     }
 }
