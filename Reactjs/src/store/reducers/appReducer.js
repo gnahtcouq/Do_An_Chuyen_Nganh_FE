@@ -32,7 +32,7 @@ const appReducer = (state = initialState, action) => {
         }
       }
     case actionTypes.CHANGE_LANGUAGE:
-      console.log('petcung check redux: ', action.language)
+      // console.log('petcung check redux: ', action.language)
       return {
         ...state,
         language: action.language
