@@ -384,7 +384,7 @@ class UserRedux extends Component {
                   className={
                     this.state.action === CRUD_ACTIONS.EDIT
                       ? 'btn btn-warning'
-                      : 'btn btn-primary'
+                      : 'btn btn-success'
                   }
                   onClick={() => this.handleSaveUser()}
                 >
