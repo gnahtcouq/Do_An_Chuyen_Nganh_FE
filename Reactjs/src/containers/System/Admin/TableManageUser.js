@@ -42,10 +42,13 @@ class TableManageUser extends Component {
               <FormattedMessage id="manage-user.email" />
             </th>
             <th>
+              <FormattedMessage id="manage-user.last-name" />
+            </th>
+            <th>
               <FormattedMessage id="manage-user.first-name" />
             </th>
             <th>
-              <FormattedMessage id="manage-user.last-name" />
+              <FormattedMessage id="manage-user.phone-number" />
             </th>
             <th>
               <FormattedMessage id="manage-user.address" />
@@ -60,8 +63,9 @@ class TableManageUser extends Component {
               return (
                 <tr key={index}>
                   <td>{item.email}</td>
-                  <td>{item.firstName}</td>
                   <td>{item.lastName}</td>
+                  <td>{item.firstName}</td>
+                  <td>{item.phonenumber}</td>
                   <td>{item.address}</td>
                   <td>
                     <button

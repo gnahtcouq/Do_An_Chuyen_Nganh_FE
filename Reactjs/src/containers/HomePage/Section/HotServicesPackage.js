@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import './HotServicesPackage.scss'
 import Slider from 'react-slick'
+import {FormattedMessage} from 'react-intl'
 
 class HotServicesPackage extends Component {
   render() {
@@ -9,8 +10,12 @@ class HotServicesPackage extends Component {
       <div className="section-share section-hot-services-package">
         <div className="section-container">
           <div className="section-header">
-            <span className="title-section">Gói dịch vụ hot</span>
-            <button className="btn-section">Xem thêm</button>
+            <span className="title-section">
+              <FormattedMessage id="homepage.hot-services-package" />
+            </span>
+            <button className="btn-section">
+              <FormattedMessage id="homepage.more-info" />
+            </button>
           </div>
           <div className="section-body">
             <Slider {...this.props.settings}>

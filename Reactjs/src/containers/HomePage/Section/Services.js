@@ -10,8 +10,12 @@ class Services extends Component {
       <div className="section-share section-services">
         <div className="section-container">
           <div className="section-header">
-            <span className="title-section">Dịch vụ hàng đầu</span>
-            <button className="btn-section">Xem thêm</button>
+            <span className="title-section">
+              <FormattedMessage id="homepage.services" />
+            </span>
+            <button className="btn-section">
+              <FormattedMessage id="homepage.more-info" />
+            </button>
           </div>
           <div className="section-body">
             <Slider {...this.props.settings}>

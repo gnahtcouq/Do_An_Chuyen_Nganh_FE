@@ -4,6 +4,7 @@ import './OutStandingStaff.scss'
 import Slider from 'react-slick'
 import * as actions from '../../../store/actions'
 import {LANGUAGES} from '../../../utils'
+import {FormattedMessage} from 'react-intl'
 
 class OutStandingStaff extends Component {
   constructor(props) {
@@ -34,9 +35,11 @@ class OutStandingStaff extends Component {
         <div className="section-container">
           <div className="section-header">
             <span className="title-section">
-              Đội ngũ nhân viên chuyên nghiệp
+              <FormattedMessage id="homepage.out-standing-staff" />
             </span>
-            {/* <button className="btn-section">Xem thêm</button> */}
+            <button className="btn-section">
+              <FormattedMessage id="homepage.more-info" />
+            </button>
           </div>
           <div className="section-body">
             <Slider {...this.props.settings}>

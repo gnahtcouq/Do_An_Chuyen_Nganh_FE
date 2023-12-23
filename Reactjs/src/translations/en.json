@@ -38,5 +38,11 @@
         "edit" : "Save changes",
         "cancel" : "Cancle",
         "action" : "Action"
+    },
+    "homepage": {
+        "services": "Services",
+        "hot-services-package": "Hot services package",
+        "out-standing-staff": "Out standing staff",
+        "more-info": "More information"
     }
 }

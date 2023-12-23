@@ -38,5 +38,11 @@
         "edit" : "Lưu thay đổi",
         "cancel" : "Huỷ bỏ",
         "action" : "Hành động"
+    },
+    "homepage": {
+        "services": "Dịch vụ hàng đầu",
+        "hot-services-package": "Gói dịch vụ hot",
+        "out-standing-staff": "Đội ngũ nhân viên chuyên nghiệp",
+        "more-info": "Xem thêm"
     }
 }
