@@ -9,7 +9,7 @@ class About extends Component {
         <div className="section-about-header">Đôi điều về Pet Cưng</div>
         <div className="section-about-content">
           <div className="content-left">
-            <img src={aboutImage} alt="" className="bg-image" />
+            {/* <img src={aboutImage} alt="" className="bg-image" /> */}
           </div>
           <div className="content-right">
             <p>
