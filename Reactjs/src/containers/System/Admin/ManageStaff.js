@@ -32,9 +32,25 @@ class ManageStaff extends Component {
       let dataSelect = this.buildDataInputSelect(this.props.allStaff)
       this.setState({listStaff: dataSelect})
     }
+    // if (prevProps.language !== this.props.language) {
+    //   let dataSelect = this.buildDataInputSelect(this.props.allStaff)
+    //   this.setState({listStaff: dataSelect})
+    // }
     if (prevProps.language !== this.props.language) {
       let dataSelect = this.buildDataInputSelect(this.props.allStaff)
-      this.setState({listStaff: dataSelect})
+      for (let i = 0; i < dataSelect.length; i++) {
+        if (dataSelect[i].value === this.state.selectedOption.value) {
+          let label = dataSelect[i].label
+          let value = dataSelect[i].value
+          this.setState({
+            selectedOption: {label, value}
+          })
+          break
+        }
+      }
+      this.setState({
+        listStaff: dataSelect
+      })
     }
   }
 
