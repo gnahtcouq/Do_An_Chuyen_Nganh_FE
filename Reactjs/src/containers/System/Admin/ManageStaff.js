@@ -7,12 +7,7 @@ import MarkdownIt from 'markdown-it'
 import MdEditor from 'react-markdown-editor-lite'
 import 'react-markdown-editor-lite/lib/index.css'
 import Select from 'react-select'
-
-const options = [
-  {value: 'chocolate', label: 'Chocolate'},
-  {value: 'strawberry', label: 'Strawberry'},
-  {value: 'vanilla', label: 'Vanilla'}
-]
+import {LANGUAGES} from '../../../utils'
 
 const mdParser = new MarkdownIt(/* Markdown-it options */)
 
@@ -23,13 +18,41 @@ class ManageStaff extends Component {
       contentMarkdown: '',
       contentHTML: '',
       selectedOption: '',
-      description: ''
+      description: '',
+      listStaff: []
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.fetchAllStaff()
+  }
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.allStaff !== this.props.allStaff) {
+      let dataSelect = this.buildDataInputSelect(this.props.allStaff)
+      this.setState({listStaff: dataSelect})
+    }
+    if (prevProps.language !== this.props.language) {
+      let dataSelect = this.buildDataInputSelect(this.props.allStaff)
+      this.setState({listStaff: dataSelect})
+    }
+  }
+
+  buildDataInputSelect = (inputData) => {
+    let result = []
+    let {language} = this.props
+    if (inputData && inputData.length > 0) {
+      inputData.map((item, index) => {
+        let object = {}
+        let labelVi = `${item.lastName} ${item.firstName}`
+        let labelEn = `${item.firstName} ${item.lastName}`
+        object.label = language === LANGUAGES.VI ? labelVi : labelEn
+        object.value = item.id
+        result.push(object)
+      })
+    }
+    return result
+  }
 
   handleEditorChange = ({html, text}) => {
     this.setState({
@@ -39,6 +62,12 @@ class ManageStaff extends Component {
   }
 
   handleSaveContentMarkdown = () => {
+    this.props.saveDetailStaff({
+      staffId: this.state.selectedOption.value,
+      description: this.state.description,
+      contentHTML: this.state.contentHTML,
+      contentMarkdown: this.state.contentMarkdown
+    })
     console.log('check state', this.state)
   }
 
@@ -51,6 +80,7 @@ class ManageStaff extends Component {
   }
 
   render() {
+    console.log('check state', this.state)
     return (
       <div className="manage-staff-container">
         <div className="manage-staff-title">Tạo thêm thông tin nhân viên</div>
@@ -60,7 +90,7 @@ class ManageStaff extends Component {
             <Select
               value={this.state.selectedOption}
               onChange={this.handleChange}
-              options={options}
+              options={this.state.listStaff}
             />
           </div>
           <div className="content-right form-group">
@@ -98,14 +128,15 @@ class ManageStaff extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    listUsers: state.admin.users
+    language: state.app.language,
+    allStaff: state.admin.allStaff
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
-    deleteUserRedux: (id) => dispatch(actions.deleteUser(id))
+    fetchAllStaff: () => dispatch(actions.fetchAllStaff()),
+    saveDetailStaff: (data) => dispatch(actions.saveDetailStaff(data))
   }
 }
 

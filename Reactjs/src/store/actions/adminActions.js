@@ -5,7 +5,9 @@ import {
   getAllUsers,
   deleteUserService,
   editUserService,
-  getTopStaffHomeService
+  getTopStaffHomeService,
+  getAllStaff,
+  saveDetailStaffService
 } from '../../services/userService'
 import {toast} from 'react-toastify'
 
@@ -229,6 +231,56 @@ export const fetchTopStaffs = () => {
       console.log('fetchTopStaffs error', error)
       dispatch({
         type: actionTypes.FETCH_TOP_STAFFS_FAIL
+      })
+    }
+  }
+}
+
+export const fetchAllStaff = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllStaff()
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_STAFFS_SUCCESS,
+          dataStaff: res.data
+        })
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_STAFFS_FAIL
+        })
+      }
+    } catch (error) {
+      console.log('fetchAllStaffs error', error)
+      dispatch({
+        type: actionTypes.FETCH_ALL_STAFFS_FAIL
+      })
+    }
+  }
+}
+
+export const saveDetailStaff = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await saveDetailStaffService(data)
+      if (res && res.errCode === 0) {
+        toast.success('Save detail info staff success!')
+        dispatch({
+          type: actionTypes.SAVE_DETAIL_STAFF_SUCCESS,
+          dataStaff: res.data
+        })
+      } else {
+        console.log('saveDetailStaff error', res)
+        toast.error('Save detail info staff error!')
+        dispatch({
+          type: actionTypes.SAVE_DETAIL_STAFF_FAIL
+        })
+      }
+    } catch (error) {
+      toast.error('Save detail info staff error!')
+      console.log('saveDetailStaff error', error)
+      dispatch({
+        type: actionTypes.SAVE_DETAIL_STAFF_FAIL
       })
     }
   }

@@ -10,7 +10,7 @@ const getAllUsers = (inputId) => {
 }
 
 const createNewUserService = (data) => {
-  console.log('check data from react: ', data)
+  // console.log('check data from react: ', data)
   return axios.post('/api/create-new-user', data)
 }
 
@@ -34,6 +34,14 @@ const getTopStaffHomeService = (limit) => {
   return axios.get(`/api/top-staff-home?limit=${limit}`)
 }
 
+const getAllStaff = () => {
+  return axios.get(`/api/get-all-staff`)
+}
+
+const saveDetailStaffService = (data) => {
+  return axios.post('/api/save-info-staff', data)
+}
+
 export {
   handleLoginApi,
   getAllUsers,
@@ -41,5 +49,7 @@ export {
   deleteUserService,
   editUserService,
   getAllCodeService,
-  getTopStaffHomeService
+  getTopStaffHomeService,
+  getAllStaff,
+  saveDetailStaffService
 }
