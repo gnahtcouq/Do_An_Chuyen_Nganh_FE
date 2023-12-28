@@ -28,8 +28,10 @@ class OutStandingStaff extends Component {
   }
 
   handleViewDetailStaff = (staff) => {
-    console.log('staff', staff)
-    this.props.history.push(`/detail-staff/${staff.id}`)
+    // console.log('staff', staff)
+    if (this.props.history) {
+      this.props.history.push(`/detail-staff/${staff.id}`)
+    }
   }
 
   render() {
