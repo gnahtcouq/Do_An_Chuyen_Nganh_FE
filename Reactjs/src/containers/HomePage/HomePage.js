@@ -48,7 +48,7 @@ class HomePage extends Component {
     }
     return (
       <div>
-        <HomeHeader />
+        <HomeHeader isShowBanner={true} />
         <Services settings={settings} />
         <HotServicesPackage settings={settings} />
         <OutStandingStaff settings={settings} />

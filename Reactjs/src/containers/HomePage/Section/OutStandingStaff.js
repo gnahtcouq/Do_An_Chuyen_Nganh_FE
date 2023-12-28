@@ -5,6 +5,7 @@ import Slider from 'react-slick'
 import * as actions from '../../../store/actions'
 import {LANGUAGES} from '../../../utils'
 import {FormattedMessage} from 'react-intl'
+import {withRouter} from 'react-router'
 
 class OutStandingStaff extends Component {
   constructor(props) {
@@ -24,6 +25,11 @@ class OutStandingStaff extends Component {
 
   componentDidMount() {
     this.props.loadTopStaffs()
+  }
+
+  handleViewDetailStaff = (staff) => {
+    console.log('staff', staff)
+    this.props.history.push(`/detail-staff/${staff.id}`)
   }
 
   render() {
@@ -55,7 +61,11 @@ class OutStandingStaff extends Component {
                   let nameVi = `${item.lastName} ${item.firstName}`
                   let nameEn = `${item.lastName} ${item.firstName}`
                   return (
-                    <div className="section-customize" key={index}>
+                    <div
+                      className="section-customize"
+                      key={index}
+                      onClick={() => this.handleViewDetailStaff(item)}
+                    >
                       <div className="customize-border">
                         <div className="outer-bg">
                           <div
@@ -97,4 +107,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutStandingStaff)
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(OutStandingStaff)
+)

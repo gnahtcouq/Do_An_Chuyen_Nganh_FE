@@ -80,18 +80,20 @@ class HomeHeader extends Component {
             </div>
           </div>
         </div>
-        <div className="home-header-banner">
-          <div className="title">
-            <FormattedMessage id="banner.title" />
-          </div>
-          {/* <div className="subtitle">
+        {this.props.isShowBanner && (
+          <div className="home-header-banner">
+            <div className="title">
+              <FormattedMessage id="banner.title" />
+            </div>
+            {/* <div className="subtitle">
             <FormattedMessage id="banner.subtitle" />
           </div> */}
-          <div className="search">
-            <i className="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Tìm dịch vụ"></input>
+            <div className="search">
+              <i className="fa-solid fa-magnifying-glass"></i>
+              <input type="text" placeholder="Tìm dịch vụ"></input>
+            </div>
           </div>
-        </div>
+        )}
       </React.Fragment>
     )
   }
