@@ -19,9 +19,15 @@ export const adminMenu = [
         //   {name: 'menu.admin.manage-staff', link: '/system/user-manage'}
         // ]
       },
+      // ,
+      // {
+      //   name: 'menu.admin.manage-admin',
+      //   link: '/system/user-admin'
+      // }
       {
-        name: 'menu.admin.manage-admin',
-        link: '/system/user-admin'
+        //quản lý Lịch hẹn
+        name: 'menu.staff.manage-schedule',
+        link: '/staff/manage-schedule'
       }
     ]
   },
@@ -32,6 +38,19 @@ export const adminMenu = [
       {
         name: 'menu.admin.manage-room',
         link: '/system/manage-room'
+      }
+    ]
+  }
+]
+
+export const staffMenu = [
+  {
+    name: 'menu.admin.manage-user',
+    menus: [
+      {
+        //quản lý lịch hẹn
+        name: 'menu.staff.manage-schedule',
+        link: '/staff/manage-schedule'
       }
     ]
   }

@@ -20,6 +20,9 @@
             "crud-redux": "CRUD redux",
             "room": "Room",
             "manage-room": "Manage rooms"
+        },
+        "staff": {
+            "manage-schedule": "Manage schedule"
         }
     },
     "manage-user": {

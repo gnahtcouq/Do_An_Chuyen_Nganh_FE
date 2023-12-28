@@ -20,6 +20,9 @@
             "crud-redux": "CRUD redux",
             "room": "Phòng",
             "manage-room": "Quản lý phòng"
+        },
+        "staff": {
+            "manage-schedule": "Quản lý lịch hẹn"
         }
     },
     "manage-user": {
