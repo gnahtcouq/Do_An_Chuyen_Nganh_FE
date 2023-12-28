@@ -7,7 +7,9 @@ import MarkdownIt from 'markdown-it'
 import MdEditor from 'react-markdown-editor-lite'
 import 'react-markdown-editor-lite/lib/index.css'
 import Select from 'react-select'
-import {LANGUAGES} from '../../../utils'
+import {CRUD_ACTIONS, LANGUAGES} from '../../../utils'
+import {getDetailInfoStaff} from '../../../services/userService'
+import {has} from 'lodash'
 
 const mdParser = new MarkdownIt(/* Markdown-it options */)
 
@@ -19,7 +21,8 @@ class ManageStaff extends Component {
       contentHTML: '',
       selectedOption: '',
       description: '',
-      listStaff: []
+      listStaff: [],
+      hasOldData: false
     }
   }
 
@@ -78,17 +81,36 @@ class ManageStaff extends Component {
   }
 
   handleSaveContentMarkdown = () => {
+    let {hasOldData} = this.state
     this.props.saveDetailStaff({
       staffId: this.state.selectedOption.value,
       description: this.state.description,
       contentHTML: this.state.contentHTML,
-      contentMarkdown: this.state.contentMarkdown
+      contentMarkdown: this.state.contentMarkdown,
+      action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
     })
-    console.log('check state', this.state)
+    // console.log('check state', this.state)
   }
 
-  handleChange = (selectedOption) => {
+  handleChangeSelect = async (selectedOption) => {
     this.setState({selectedOption})
+    let res = await getDetailInfoStaff(selectedOption.value)
+    if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+      let markdown = res.data.Markdown
+      this.setState({
+        description: markdown.description,
+        contentHTML: markdown.contentHTML,
+        contentMarkdown: markdown.contentMarkdown,
+        hasOldData: true
+      })
+    } else {
+      this.setState({
+        description: '',
+        contentHTML: '',
+        contentMarkdown: '',
+        hasOldData: false
+      })
+    }
   }
 
   handleOnChangeDes = (event) => {
@@ -96,7 +118,8 @@ class ManageStaff extends Component {
   }
 
   render() {
-    console.log('check state', this.state)
+    // console.log('check state', this.state)
+    let {hasOldData} = this.state
     return (
       <div className="manage-staff-container">
         <div className="manage-staff-title">Tạo thêm thông tin nhân viên</div>
@@ -105,7 +128,7 @@ class ManageStaff extends Component {
             <label>Chọn nhân viên</label>
             <Select
               value={this.state.selectedOption}
-              onChange={this.handleChange}
+              onChange={this.handleChangeSelect}
               options={this.state.listStaff}
             />
           </div>
@@ -126,14 +149,21 @@ class ManageStaff extends Component {
             style={{height: '500px'}}
             renderHTML={(text) => mdParser.render(text)}
             onChange={this.handleEditorChange}
+            value={this.state.contentMarkdown}
           />
         </div>
         <div className="my-3 d-flex justify-content-end">
           <button
             onClick={() => this.handleSaveContentMarkdown()}
-            className="btn btn-warning"
+            className={
+              hasOldData === true ? 'btn btn-primary' : 'btn btn-warning'
+            }
           >
-            Lưu thông tin
+            {hasOldData === true ? (
+              <span>Lưu thông tin</span>
+            ) : (
+              <span>Tạo thông tin</span>
+            )}
           </button>
           <button className="btn btn-secondary">Huỷ bỏ</button>
         </div>
