@@ -4,9 +4,11 @@ import './ManageSchedule.scss'
 import {FormattedMessage} from 'react-intl'
 import Select from 'react-select'
 import * as actions from '../../../store/actions'
-import {CRUD_ACTIONS, LANGUAGES} from '../../../utils'
+import {CRUD_ACTIONS, LANGUAGES, dateFormat} from '../../../utils'
 import DatePicker from '../../../components/Input/DatePicker'
 import moment from 'moment' // package để format ngày tháng năm
+import {toast} from 'react-toastify'
+import _ from 'lodash'
 
 class ManageSchedule extends Component {
   constructor(props) {
@@ -30,30 +32,36 @@ class ManageSchedule extends Component {
       let dataSelect = this.buildDataInputSelect(this.props.allStaff)
       this.setState({listStaff: dataSelect})
     }
-    // if (prevProps.language !== this.props.language) {
-    //   let dataSelect = this.buildDataInputSelect(this.props.allStaff)
-    //   this.setState({listStaff: dataSelect})
-    // }
 
-    // if (prevProps.language !== this.props.language) {
-    //   let dataSelect = this.buildDataInputSelect(this.props.allStaff)
-    //   for (let i = 0; i < dataSelect.length; i++) {
-    //     if (dataSelect[i].value === this.state.selectedOption.value) {
-    //       let label = dataSelect[i].label
-    //       let value = dataSelect[i].value
-    //       this.setState({
-    //         selectedOption: {label, value}
-    //       })
-    //       break
-    //     }
-    //   }
-    //   this.setState({
-    //     listStaff: dataSelect
-    //   })
-    // }
     if (prevProps.allScheduleTime !== this.props.allScheduleTime) {
+      // console.log('check allScheduleTime', this.props.allScheduleTime)
+      let data = this.props.allScheduleTime
+      if (data && data.length > 0) {
+        data = data.map((item) => ({...item, isSelected: false}))
+      }
+      // console.log('check data', data)
       this.setState({
-        rangeTime: this.props.allScheduleTime
+        rangeTime: data
+      })
+    }
+
+    if (prevProps.language !== this.props.language) {
+      let dataSelect = this.buildDataInputSelect(this.props.allStaff)
+      let selectedStaffId = this.state.selectedStaff.value
+
+      for (let i = 0; i < dataSelect.length; i++) {
+        if (dataSelect[i].value === selectedStaffId) {
+          let label = dataSelect[i].label
+          let value = dataSelect[i].value
+          this.setState({
+            selectedStaff: {label, value}
+          })
+          break
+        }
+      }
+
+      this.setState({
+        listStaff: dataSelect
       })
     }
   }
@@ -82,10 +90,60 @@ class ManageSchedule extends Component {
     this.setState({currentDate: date[0]})
   }
 
+  handleClickBtnTime = (time) => {
+    let {rangeTime} = this.state
+    if (rangeTime && rangeTime.length > 0) {
+      rangeTime.map((item) => {
+        if (item.id === time.id) {
+          item.isSelected = !item.isSelected
+        }
+        return item
+      })
+      this.setState({rangeTime: rangeTime})
+    }
+  }
+
+  handleSaveSchedule = () => {
+    let {rangeTime, selectedStaff, currentDate} = this.state
+    let result = []
+
+    if (selectedStaff && _.isEmpty(selectedStaff)) {
+      toast.error('Please choose staff')
+      return
+    }
+    if (!currentDate) {
+      toast.error('Please choose date')
+      return
+    }
+
+    let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+
+    if (rangeTime && rangeTime.length > 0) {
+      let selectedTime = rangeTime.filter((item) => item.isSelected === true)
+      if (selectedTime && selectedTime.length > 0) {
+        selectedTime.map((schedule, index) => {
+          console.log('check schedule', schedule, index, selectedStaff)
+          let object = {}
+          object.staffId = selectedStaff.value
+          object.date = formatedDate
+          object.time = schedule.keyMap
+          result.push(object)
+          // return time
+        })
+      } else {
+        toast.error('Please choose time')
+        return
+      }
+    }
+
+    console.log('check result', result)
+  }
+
   render() {
-    console.log('check state', this.state)
+    // console.log('check state', this.state)
     let {rangeTime} = this.state
     let {language} = this.props
+    // console.log('check rangetime', rangeTime)
     return (
       <React.Fragment>
         <div className="manage-schedule-container">
@@ -120,7 +178,15 @@ class ManageSchedule extends Component {
                   rangeTime.length > 0 &&
                   rangeTime.map((item, index) => {
                     return (
-                      <button className="btn btn-outline-primary" key={index}>
+                      <button
+                        className={
+                          item.isSelected === true
+                            ? 'btn btn-warning'
+                            : 'btn btn-outline-secondary'
+                        }
+                        key={index}
+                        onClick={() => this.handleClickBtnTime(item)}
+                      >
                         {language === LANGUAGES.VI
                           ? item.valueVi
                           : item.valueEn}
@@ -129,7 +195,10 @@ class ManageSchedule extends Component {
                   })}
               </div>
               <div className="col-12">
-                <button className="btn btn-primary btn-save-schedule">
+                <button
+                  className="btn btn-primary btn-save-schedule"
+                  onClick={() => this.handleSaveSchedule()}
+                >
                   <FormattedMessage id="manage-schedule.save" />
                 </button>
               </div>
