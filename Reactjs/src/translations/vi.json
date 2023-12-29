@@ -47,5 +47,11 @@
         "hot-services-package": "Gói dịch vụ hot",
         "out-standing-staff": "Đội ngũ nhân viên chuyên nghiệp",
         "more-info": "Xem thêm"
+    },
+    "manage-schedule": {
+        "title": "Quản lý lịch hẹn",
+        "choose-staff": "Chọn nhân viên",
+        "choose-date": "Chọn ngày",
+        "save": "Lưu"
     }
 }

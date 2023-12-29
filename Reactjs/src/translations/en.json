@@ -47,5 +47,11 @@
         "hot-services-package": "Hot services package",
         "out-standing-staff": "Out standing staff",
         "more-info": "More information"
+    },
+    "manage-schedule": {
+        "title": "Manage schedule",
+        "choose-staff": "Choose staff",
+        "choose-date": "Choose date",
+        "save": "Save"
     }
 }
