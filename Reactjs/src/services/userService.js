@@ -50,6 +50,12 @@ const saveBulkScheduleStaff = (data) => {
   return axios.post('/api/bulk-create-schedule', data)
 }
 
+const getScheduleStaffByDate = (staffId, date) => {
+  return axios.get(
+    `/api/get-schedule-staff-by-date?staffId=${staffId}&date=${date}`
+  )
+}
+
 export {
   handleLoginApi,
   getAllUsers,
@@ -61,5 +67,6 @@ export {
   getAllStaff,
   saveDetailStaffService,
   getDetailInfoStaff,
-  saveBulkScheduleStaff
+  saveBulkScheduleStaff,
+  getScheduleStaffByDate
 }

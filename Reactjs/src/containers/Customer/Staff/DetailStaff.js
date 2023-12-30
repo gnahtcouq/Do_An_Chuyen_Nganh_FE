@@ -4,6 +4,7 @@ import HomeHeader from '../../HomePage/HomeHeader'
 import './DetailStaff.scss'
 import {getDetailInfoStaff} from '../../../services/userService'
 import {LANGUAGES} from '../../../utils'
+import StaffSchedule from './StaffSchedule'
 
 class DetailStaff extends Component {
   constructor(props) {
@@ -67,7 +68,16 @@ class DetailStaff extends Component {
               </div>
             </div>
           </div>
-          <div className="schedule-staff"></div>
+          <div className="schedule-staff">
+            <div className="content-left">
+              <StaffSchedule
+                staffIdFromParent={
+                  detailStaff && detailStaff.id ? detailStaff.id : -1
+                }
+              />
+            </div>
+            <div className="content-right"></div>
+          </div>
           <div className="detail-info-staff">
             {detailStaff &&
               detailStaff.Markdown &&
