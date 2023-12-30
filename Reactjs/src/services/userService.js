@@ -46,6 +46,10 @@ const getDetailInfoStaff = (inputId) => {
   return axios.get(`/api/get-detail-staff-by-id?id=${inputId}`)
 }
 
+const saveBulkScheduleStaff = (data) => {
+  return axios.post('/api/bulk-create-schedule', data)
+}
+
 export {
   handleLoginApi,
   getAllUsers,
@@ -56,5 +60,6 @@ export {
   getTopStaffHomeService,
   getAllStaff,
   saveDetailStaffService,
-  getDetailInfoStaff
+  getDetailInfoStaff,
+  saveBulkScheduleStaff
 }

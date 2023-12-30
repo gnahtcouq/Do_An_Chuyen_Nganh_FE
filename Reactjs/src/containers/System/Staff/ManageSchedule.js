@@ -9,6 +9,7 @@ import DatePicker from '../../../components/Input/DatePicker'
 import moment from 'moment' // package để format ngày tháng năm
 import {toast} from 'react-toastify'
 import _ from 'lodash'
+import {saveBulkScheduleStaff} from '../../../services/userService'
 
 class ManageSchedule extends Component {
   constructor(props) {
@@ -103,7 +104,7 @@ class ManageSchedule extends Component {
     }
   }
 
-  handleSaveSchedule = () => {
+  handleSaveSchedule = async () => {
     let {rangeTime, selectedStaff, currentDate} = this.state
     let result = []
 
@@ -116,19 +117,20 @@ class ManageSchedule extends Component {
       return
     }
 
-    let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+    // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+    //  = moment(currentDate).unix()
+    let formatedDate = new Date(currentDate).getTime()
 
     if (rangeTime && rangeTime.length > 0) {
       let selectedTime = rangeTime.filter((item) => item.isSelected === true)
       if (selectedTime && selectedTime.length > 0) {
         selectedTime.map((schedule, index) => {
-          console.log('check schedule', schedule, index, selectedStaff)
+          // console.log('check schedule', schedule, index, selectedStaff)
           let object = {}
           object.staffId = selectedStaff.value
           object.date = formatedDate
-          object.time = schedule.keyMap
+          object.timeType = schedule.keyMap
           result.push(object)
-          // return time
         })
       } else {
         toast.error('Please choose time')
@@ -136,6 +138,13 @@ class ManageSchedule extends Component {
       }
     }
 
+    let res = await saveBulkScheduleStaff({
+      arrSchedule: result,
+      staffId: selectedStaff.value,
+      formatedDate: formatedDate
+    })
+
+    console.log('check res saveBulkScheduleStaff', res)
     console.log('check result', result)
   }
 
