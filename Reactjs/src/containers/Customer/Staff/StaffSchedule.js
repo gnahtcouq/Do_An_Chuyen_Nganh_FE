@@ -28,19 +28,23 @@ class StaffSchedule extends Component {
     let allDays = []
     for (let i = 0; i < 7; i++) {
       let object = {}
+      let currentDate = moment(new Date()).startOf('day')
+      let currentDay = currentDate.clone().add(i, 'days')
+
       if (language === LANGUAGES.VI) {
-        object.label = moment(new Date())
-          .add(i, 'days')
-          .format('dddd - DD/MM')
-          .replace(/^t/g, 'T')
-          .replace('chủ nhật', 'Chủ nhật')
+        object.label = currentDay.isSame(currentDate, 'day')
+          ? `Hôm nay - ${currentDay.format('DD/MM')}`
+          : currentDay
+              .format('dddd - DD/MM')
+              .replace(/^t/g, 'T')
+              .replace('chủ nhật', 'Chủ nhật')
       } else {
-        object.label = moment(new Date())
-          .add(i, 'days')
-          .locale('en')
-          .format('dddd - DD/MM')
+        object.label = currentDay.isSame(currentDate, 'day')
+          ? `Today - ${currentDay.locale('en').format('DD/MM')}`
+          : currentDay.locale('en').format('dddd - DD/MM')
       }
-      object.value = moment(new Date()).add(i, 'days').startOf('day').valueOf()
+
+      object.value = currentDay.valueOf()
       allDays.push(object)
     }
 
@@ -109,10 +113,10 @@ class StaffSchedule extends Component {
                   )
                 })
               ) : (
-                <div>
-                  Chưa có lịch trong thời hôm nay, vui lòng chọn khoảng thời
-                  gian khác!
-                </div>
+                <p>
+                  Chưa có lịch trong khoảng thời gian này, vui lòng chọn khoảng
+                  thời gian khác!
+                </p>
               )}
             </div>
           </div>
