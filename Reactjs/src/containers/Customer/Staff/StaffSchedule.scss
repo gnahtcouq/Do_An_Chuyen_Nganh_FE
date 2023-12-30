@@ -1,0 +1,48 @@
+.staff-schedule-container {
+    border-right: 1px solid #ddd;
+    height      : 100%;
+
+    .all-schedule {
+        select {
+            border       : none;
+            border-bottom: 1px solid #ddd;
+            outline      : none;
+            cursor       : pointer;
+            padding      : 10px 0;
+            color        : #337ab7;
+            font-weight  : 600;
+        }
+    }
+
+    .all-available-time {
+        .text-calendar {
+            margin: 10px 0;
+            color : #333;
+
+            i {
+                margin-right: 5px;
+            }
+
+            span {
+                font-weight   : 600;
+                text-transform: uppercase;
+            }
+        }
+
+        .time-content {
+            display  : flex;
+            gap      : 15px;
+            flex-wrap: wrap;
+
+            button {
+                padding      : 8px 10px;
+                border       : none;
+                outline      : none;
+                min-width    : 120px;
+                border-radius: 3px;
+                font-weight  : 600;
+                color        : #333;
+            }
+        }
+    }
+}

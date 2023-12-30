@@ -10,7 +10,8 @@ class StaffSchedule extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      allDays: []
+      allDays: [],
+      allAvailableTime: []
     }
   }
 
@@ -28,7 +29,11 @@ class StaffSchedule extends Component {
     for (let i = 0; i < 7; i++) {
       let object = {}
       if (language === LANGUAGES.VI) {
-        object.label = moment(new Date()).add(i, 'days').format('dddd - DD/MM')
+        object.label = moment(new Date())
+          .add(i, 'days')
+          .format('dddd - DD/MM')
+          .replace(/^t/g, 'T')
+          .replace('chủ nhật', 'Chủ nhật')
       } else {
         object.label = moment(new Date())
           .add(i, 'days')
@@ -55,12 +60,19 @@ class StaffSchedule extends Component {
       let staffId = this.props.staffIdFromParent
       let date = event.target.value
       let res = await getScheduleStaffByDate(staffId, date)
+
+      if (res && res.errCode === 0) {
+        this.setState({
+          allAvailableTime: res.data ? res.data : []
+        })
+      }
       console.log('check res', res)
     }
   }
 
   render() {
-    let {allDays} = this.state
+    let {allDays, allAvailableTime} = this.state
+    let {language} = this.props
     return (
       <React.Fragment>
         <div className="staff-schedule-container">
@@ -77,7 +89,33 @@ class StaffSchedule extends Component {
                 })}
             </select>
           </div>
-          <div className="all-available-time"></div>
+          <div className="all-available-time">
+            <div className="text-calendar">
+              <span>
+                <i className="fas fa-calendar-alt"></i>Lịch hẹn
+              </span>
+            </div>
+            <div className="time-content">
+              {allAvailableTime && allAvailableTime.length > 0 ? (
+                allAvailableTime.map((item, index) => {
+                  let timeDisplay =
+                    language === LANGUAGES.VI
+                      ? item.timeTypeData.valueVi
+                      : item.timeTypeData.valueEn
+                  return (
+                    <button className="btn btn-warning" key={index}>
+                      {timeDisplay}
+                    </button>
+                  )
+                })
+              ) : (
+                <div>
+                  Chưa có lịch trong thời hôm nay, vui lòng chọn khoảng thời
+                  gian khác!
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </React.Fragment>
     )
