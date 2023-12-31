@@ -42,16 +42,36 @@ class ManageStaff extends Component {
     let result = []
     let {language} = this.props
     if (inputData && inputData.length > 0) {
-      inputData.map((item, index) => {
-        let object = {}
-        let labelVi =
-          type === 'USERS' ? `${item.lastName} ${item.firstName}` : item.valueVi
-        let labelEn =
-          type === 'USERS' ? `${item.firstName} ${item.lastName}` : item.valueEn
-        object.label = language === LANGUAGES.VI ? labelVi : labelEn
-        object.value = item.id
-        result.push(object)
-      })
+      if (type === 'USERS') {
+        inputData.map((item, index) => {
+          let object = {}
+          let labelVi = `${item.lastName} ${item.firstName}`
+          let labelEn = `${item.firstName} ${item.lastName}`
+          object.label = language === LANGUAGES.VI ? labelVi : labelEn
+          object.value = item.id
+          result.push(object)
+        })
+      }
+      if (type === 'PRICE') {
+        inputData.map((item, index) => {
+          let object = {}
+          let labelVi = `${item.valueVi}`
+          let labelEn = `${item.valueEn} USD`
+          object.label = language === LANGUAGES.VI ? labelVi : labelEn
+          object.value = item.keyMap
+          result.push(object)
+        })
+      }
+      if (type === 'PAYMENT') {
+        inputData.map((item, index) => {
+          let object = {}
+          let labelVi = `${item.valueVi}`
+          let labelEn = `${item.valueEn}`
+          object.label = language === LANGUAGES.VI ? labelVi : labelEn
+          object.value = item.keyMap
+          result.push(object)
+        })
+      }
     }
     return result
   }
@@ -65,8 +85,26 @@ class ManageStaff extends Component {
     //   let dataSelect = this.buildDataInputSelect(this.props.allStaff)
     //   this.setState({listStaff: dataSelect})
     // }
+
+    if (prevProps.allRequiredStaffInfo !== this.props.allRequiredStaffInfo) {
+      let {resPayment, resPrice} = this.props.allRequiredStaffInfo
+      let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE')
+      let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT')
+
+      // console.log('check data', dataSelectPrice, dataSelectPayment)
+
+      this.setState({
+        listPrice: dataSelectPrice,
+        listPayment: dataSelectPayment
+      })
+    }
+
     if (prevProps.language !== this.props.language) {
-      let dataSelect = this.buildDataInputSelect(this.props.allStaff)
+      let dataSelect = this.buildDataInputSelect(this.props.allStaff, 'USERS')
+      let {resPayment, resPrice} = this.props.allRequiredStaffInfo
+      let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE')
+      let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT')
+
       for (let i = 0; i < dataSelect.length; i++) {
         if (dataSelect[i].value === this.state.selectedOption.value) {
           let label = dataSelect[i].label
@@ -77,21 +115,20 @@ class ManageStaff extends Component {
           break
         }
       }
-      this.setState({
-        listStaff: dataSelect
-      })
-    }
 
-    if (prevProps.allRequiredStaffInfo !== this.props.allRequiredStaffInfo) {
-      let {resPayment, resPrice} = this.props.allRequiredStaffInfo
-      let dataSelectPrice = this.buildDataInputSelect(resPrice)
-      let dataSelectPayment = this.buildDataInputSelect(resPayment)
-
-      console.log('check data', dataSelectPrice, dataSelectPayment)
+      let selectedPrice = dataSelectPrice.find(
+        (option) => option.value === this.state.selectedPrice.value
+      )
+      let selectedPayment = dataSelectPayment.find(
+        (option) => option.value === this.state.selectedPayment.value
+      )
 
       this.setState({
+        listStaff: dataSelect,
         listPrice: dataSelectPrice,
-        listPayment: dataSelectPayment
+        listPayment: dataSelectPayment,
+        selectedPrice,
+        selectedPayment
       })
     }
   }
@@ -110,7 +147,11 @@ class ManageStaff extends Component {
       description: this.state.description,
       contentHTML: this.state.contentHTML,
       contentMarkdown: this.state.contentMarkdown,
-      action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
+      action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE,
+
+      selectedPrice: this.state.selectedPrice.value,
+      selectedPayment: this.state.selectedPayment.value,
+      note: this.state.note
     })
     // console.log('check state', this.state)
   }
@@ -136,12 +177,27 @@ class ManageStaff extends Component {
     }
   }
 
-  handleOnChangeDes = (event) => {
-    this.setState({description: event.target.value})
+  handleChangeSelectStaffInfo = async (selectedOption, name) => {
+    let stateName = name.name
+    let stateCopy = {...this.state}
+    stateCopy[stateName] = selectedOption
+
+    this.setState({
+      ...stateCopy
+    })
+    // console.log('check onchange', selectedOption, stateName)
+  }
+
+  handleOnChangeText = (event, id) => {
+    let stateCopy = {...this.state}
+    stateCopy[id] = event.target.value
+    this.setState({
+      ...stateCopy
+    })
   }
 
   render() {
-    // console.log('check state', this.state)
+    console.log('check state', this.state)
     let {hasOldData} = this.state
 
     return (
@@ -151,15 +207,56 @@ class ManageStaff extends Component {
         </div>
         <div className="more-info">
           <div className="content-left form-group">
-            <label>
-              <FormattedMessage id="admin.manage-staff.select-staff" />
-            </label>
-            <Select
-              value={this.state.selectedOption}
-              onChange={this.handleChangeSelect}
-              options={this.state.listStaff}
-              placeholder={'Chọn nhân viên'}
-            />
+            <div className="col-12 form-group">
+              <label>
+                <FormattedMessage id="admin.manage-staff.select-staff" />
+              </label>
+              <Select
+                value={this.state.selectedOption}
+                onChange={this.handleChangeSelect}
+                options={this.state.listStaff}
+                placeholder={
+                  <FormattedMessage id="admin.manage-staff.select-staff" />
+                }
+              />
+            </div>
+
+            <div className="col-12 form-group">
+              <label>
+                <FormattedMessage id="admin.manage-staff.price" />
+              </label>
+              <Select
+                value={this.state.selectedPrice}
+                onChange={this.handleChangeSelectStaffInfo}
+                options={this.state.listPrice}
+                placeholder={<FormattedMessage id="admin.manage-staff.price" />}
+                name="selectedPrice"
+              />
+            </div>
+            <div className="col-12 form-group">
+              <label>
+                <FormattedMessage id="admin.manage-staff.payment" />
+              </label>
+              <Select
+                value={this.state.selectedPayment}
+                onChange={this.handleChangeSelectStaffInfo}
+                options={this.state.listPayment}
+                placeholder={
+                  <FormattedMessage id="admin.manage-staff.payment" />
+                }
+                name="selectedPayment"
+              />
+            </div>
+            <div className="col-12 form-group">
+              <label>
+                <FormattedMessage id="admin.manage-staff.note" />
+              </label>
+              <input
+                className="form-control"
+                onChange={(event) => this.handleOnChangeText(event, 'note')}
+                value={this.state.note}
+              ></input>
+            </div>
           </div>
           <div className="content-right form-group">
             <label>
@@ -167,38 +264,16 @@ class ManageStaff extends Component {
             </label>
             <textarea
               className="form-control"
-              onChange={(event) => this.handleOnChangeDes(event)}
+              rows={6}
+              onChange={(event) =>
+                this.handleOnChangeText(event, 'description')
+              }
               value={this.state.description}
-            >
-              lorem
-            </textarea>
+            ></textarea>
           </div>
         </div>
 
-        <div className="more-info-extra row">
-          <div className="col-4 form-group">
-            <label>Chọn giá</label>
-            <Select
-              value={this.state.selectedOption}
-              // onChange={this.handleChangeSelect}
-              options={this.state.listPrice}
-              placeholder={'Chọn giá'}
-            />
-          </div>
-          <div className="col-4 form-group">
-            <label>Chọn phương thức thanh toán</label>
-            <Select
-              value={this.state.selectedOption}
-              // onChange={this.handleChangeSelect}
-              options={this.state.listPayment}
-              placeholder={'Chọn phương thức thanh toán'}
-            />
-          </div>
-          <div className="col-4 form-group">
-            <label>Ghi chú</label>
-            <input className="form-control"></input>
-          </div>
-        </div>
+        <div className="more-info-extra row"></div>
 
         <div className="manage-staff-editor">
           <MdEditor

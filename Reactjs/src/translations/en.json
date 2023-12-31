@@ -69,7 +69,10 @@
             "intro": "Introduction",
             "add": "Add",
             "save": "Save",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "price": "Price",
+            "payment": "Payment",
+            "note": "Note"
         }
     }
 }
