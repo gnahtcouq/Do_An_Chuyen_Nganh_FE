@@ -29,19 +29,33 @@
             }
         }
 
-        .time-content {
-            display  : flex;
-            gap      : 15px;
-            flex-wrap: wrap;
 
-            button {
-                padding      : 8px 10px;
-                border       : none;
-                outline      : none;
-                min-width    : 120px;
-                border-radius: 3px;
-                font-weight  : 600;
-                color        : #333;
+
+        .time-content {
+
+            .time-content-btns {
+                display  : flex;
+                gap      : 15px;
+                flex-wrap: wrap;
+
+                button {
+                    padding      : 8px 10px;
+                    border       : none;
+                    outline      : none;
+                    min-width    : 120px;
+                    border-radius: 3px;
+                    font-weight  : 600;
+                    color        : #333;
+                }
+
+                .no-schedule {
+                    font-style: italic;
+                    font-size : 14px;
+                }
+            }
+
+            .booking-free {
+                margin-top: 10px;
             }
         }
     }

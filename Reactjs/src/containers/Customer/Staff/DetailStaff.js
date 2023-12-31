@@ -10,7 +10,8 @@ class DetailStaff extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      detailStaff: {}
+      detailStaff: {},
+      currentStaffId: -1
     }
   }
 
@@ -21,6 +22,10 @@ class DetailStaff extends Component {
       this.props.match.params.id
     ) {
       let id = this.props.match.params.id
+      this.setState({
+        currentStaffId: id
+      })
+
       let res = await getDetailInfoStaff(id)
       if (res && res.errCode === 0) {
         this.setState({
@@ -70,11 +75,7 @@ class DetailStaff extends Component {
           </div>
           <div className="schedule-staff">
             <div className="content-left">
-              <StaffSchedule
-                staffIdFromParent={
-                  detailStaff && detailStaff.id ? detailStaff.id : -1
-                }
-              />
+              <StaffSchedule staffIdFromParent={this.state.currentStaffId} />
             </div>
             <div className="content-right"></div>
           </div>

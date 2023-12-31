@@ -53,5 +53,13 @@
         "choose-staff": "Chọn nhân viên",
         "choose-date": "Chọn ngày",
         "save": "Lưu"
+    },
+    "customer": {
+        "detail-staff": {
+            "schedule": "Lịch hẹn",
+            "no-schedule": "Chưa có lịch hẹn nào!",
+            "choose" : "Chọn ",
+            "booking-free": " và đặt lịch hẹn miễn phí"
+        }
     }
 }

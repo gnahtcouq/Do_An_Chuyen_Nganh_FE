@@ -53,5 +53,13 @@
         "choose-staff": "Choose staff",
         "choose-date": "Choose date",
         "save": "Save"
+    },
+    "customer": {
+        "detail-staff": {
+            "schedule": "Schedule",
+            "no-schedule": "No schedule!",
+            "choose": "Choose ",
+            "booking-free": " and schedule a free appointment"
+        }
     }
 }
