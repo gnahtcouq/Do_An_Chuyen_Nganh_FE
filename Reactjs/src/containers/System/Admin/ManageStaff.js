@@ -16,22 +16,49 @@ class ManageStaff extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      // sa ve to markdowns table
       contentMarkdown: '',
       contentHTML: '',
       selectedOption: '',
       description: '',
       listStaff: [],
-      hasOldData: false
+      hasOldData: false,
+
+      // save to staff_info table
+      listPrice: [],
+      listPayment: [],
+      selectedPrice: '',
+      selectedPayment: '',
+      note: ''
     }
   }
 
   componentDidMount() {
     this.props.fetchAllStaff()
+    this.props.getRequiredStaffInfor()
+  }
+
+  buildDataInputSelect = (inputData, type) => {
+    let result = []
+    let {language} = this.props
+    if (inputData && inputData.length > 0) {
+      inputData.map((item, index) => {
+        let object = {}
+        let labelVi =
+          type === 'USERS' ? `${item.lastName} ${item.firstName}` : item.valueVi
+        let labelEn =
+          type === 'USERS' ? `${item.firstName} ${item.lastName}` : item.valueEn
+        object.label = language === LANGUAGES.VI ? labelVi : labelEn
+        object.value = item.id
+        result.push(object)
+      })
+    }
+    return result
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.allStaff !== this.props.allStaff) {
-      let dataSelect = this.buildDataInputSelect(this.props.allStaff)
+      let dataSelect = this.buildDataInputSelect(this.props.allStaff, 'USERS')
       this.setState({listStaff: dataSelect})
     }
     // if (prevProps.language !== this.props.language) {
@@ -54,22 +81,19 @@ class ManageStaff extends Component {
         listStaff: dataSelect
       })
     }
-  }
 
-  buildDataInputSelect = (inputData) => {
-    let result = []
-    let {language} = this.props
-    if (inputData && inputData.length > 0) {
-      inputData.map((item, index) => {
-        let object = {}
-        let labelVi = `${item.lastName} ${item.firstName}`
-        let labelEn = `${item.firstName} ${item.lastName}`
-        object.label = language === LANGUAGES.VI ? labelVi : labelEn
-        object.value = item.id
-        result.push(object)
+    if (prevProps.allRequiredStaffInfo !== this.props.allRequiredStaffInfo) {
+      let {resPayment, resPrice} = this.props.allRequiredStaffInfo
+      let dataSelectPrice = this.buildDataInputSelect(resPrice)
+      let dataSelectPayment = this.buildDataInputSelect(resPayment)
+
+      console.log('check data', dataSelectPrice, dataSelectPayment)
+
+      this.setState({
+        listPrice: dataSelectPrice,
+        listPayment: dataSelectPayment
       })
     }
-    return result
   }
 
   handleEditorChange = ({html, text}) => {
@@ -119,23 +143,30 @@ class ManageStaff extends Component {
   render() {
     // console.log('check state', this.state)
     let {hasOldData} = this.state
+
     return (
       <div className="manage-staff-container">
-        <div className="manage-staff-title">Tạo thêm thông tin nhân viên</div>
+        <div className="manage-staff-title">
+          <FormattedMessage id="admin.manage-staff.title" />
+        </div>
         <div className="more-info">
           <div className="content-left form-group">
-            <label>Chọn nhân viên</label>
+            <label>
+              <FormattedMessage id="admin.manage-staff.select-staff" />
+            </label>
             <Select
               value={this.state.selectedOption}
               onChange={this.handleChangeSelect}
               options={this.state.listStaff}
+              placeholder={'Chọn nhân viên'}
             />
           </div>
           <div className="content-right form-group">
-            <label>Thông tin giới thiệu:</label>
+            <label>
+              <FormattedMessage id="admin.manage-staff.intro" />
+            </label>
             <textarea
               className="form-control"
-              rows="4"
               onChange={(event) => this.handleOnChangeDes(event)}
               value={this.state.description}
             >
@@ -143,6 +174,32 @@ class ManageStaff extends Component {
             </textarea>
           </div>
         </div>
+
+        <div className="more-info-extra row">
+          <div className="col-4 form-group">
+            <label>Chọn giá</label>
+            <Select
+              value={this.state.selectedOption}
+              // onChange={this.handleChangeSelect}
+              options={this.state.listPrice}
+              placeholder={'Chọn giá'}
+            />
+          </div>
+          <div className="col-4 form-group">
+            <label>Chọn phương thức thanh toán</label>
+            <Select
+              value={this.state.selectedOption}
+              // onChange={this.handleChangeSelect}
+              options={this.state.listPayment}
+              placeholder={'Chọn phương thức thanh toán'}
+            />
+          </div>
+          <div className="col-4 form-group">
+            <label>Ghi chú</label>
+            <input className="form-control"></input>
+          </div>
+        </div>
+
         <div className="manage-staff-editor">
           <MdEditor
             style={{height: '500px'}}
@@ -159,12 +216,18 @@ class ManageStaff extends Component {
             }
           >
             {hasOldData === true ? (
-              <span>Lưu thông tin</span>
+              <span>
+                <FormattedMessage id="admin.manage-staff.save" />
+              </span>
             ) : (
-              <span>Tạo thông tin</span>
+              <span>
+                <FormattedMessage id="admin.manage-staff.add" />
+              </span>
             )}
           </button>
-          <button className="btn btn-secondary">Huỷ bỏ</button>
+          <button className="btn btn-secondary">
+            <FormattedMessage id="admin.manage-staff.cancel" />
+          </button>
         </div>
       </div>
     )
@@ -174,13 +237,15 @@ class ManageStaff extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    allStaff: state.admin.allStaff
+    allStaff: state.admin.allStaff,
+    allRequiredStaffInfo: state.admin.allRequiredStaffInfo
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchAllStaff: () => dispatch(actions.fetchAllStaff()),
+    getRequiredStaffInfor: () => dispatch(actions.getRequiredStaffInfor()),
     saveDetailStaff: (data) => dispatch(actions.saveDetailStaff(data))
   }
 }

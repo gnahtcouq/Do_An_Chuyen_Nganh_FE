@@ -8,7 +8,9 @@ const initialState = {
   users: [],
   topStaffs: [],
   allStaff: [],
-  allScheduleTime: []
+  allScheduleTime: [],
+
+  allRequiredStaffInfo: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -90,6 +92,19 @@ const adminReducer = (state = initialState, action) => {
 
     case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAIL:
       state.allScheduleTime = []
+      return {
+        ...state
+      }
+
+    case actionTypes.FETCH_REQUIRED_STAFF_INFO_SUCCESS:
+      state.allRequiredStaffInfo = action.data
+      // console.log('data action', action)
+      return {
+        ...state
+      }
+
+    case actionTypes.FETCH_REQUIRED_STAFF_INFO_FAIL:
+      state.allRequiredStaffInfo = []
       return {
         ...state
       }

@@ -308,3 +308,41 @@ export const fetchAllScheduleTime = () => {
     }
   }
 }
+
+export const getRequiredStaffInfor = () => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: actionTypes.FETCH_REQUIRED_STAFF_INFO_START
+      })
+      let resPrice = await getAllCodeService('PRICE')
+      let resPayment = await getAllCodeService('PAYMENT')
+      if (
+        resPrice &&
+        resPrice.errCode === 0 &&
+        resPayment &&
+        resPayment.errCode === 0
+      ) {
+        let data = {
+          resPrice: resPrice.data,
+          resPayment: resPayment.data
+        }
+        dispatch(fetchRequiredStaffInfoSuccess(data))
+      } else {
+        dispatch(fetchRequiredStaffInfoFail())
+      }
+    } catch (error) {
+      dispatch(fetchRequiredStaffInfoFail())
+      console.log('fetchRequiredStaffInfo error', error)
+    }
+  }
+}
+
+export const fetchRequiredStaffInfoSuccess = (allRequiredData) => ({
+  type: actionTypes.FETCH_REQUIRED_STAFF_INFO_SUCCESS,
+  data: allRequiredData
+})
+
+export const fetchRequiredStaffInfoFail = () => ({
+  type: actionTypes.FETCH_REQUIRED_STAFF_INFO_FAIL
+})

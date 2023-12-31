@@ -61,5 +61,15 @@
             "choose": "Choose ",
             "booking-free": " and schedule a free appointment"
         }
+    },
+    "admin": {
+        "manage-staff": {
+            "title": "Manage staff information",
+            "select-staff": "Select staff",
+            "intro": "Introduction",
+            "add": "Add",
+            "save": "Save",
+            "cancel": "Cancel"
+        }
     }
 }
