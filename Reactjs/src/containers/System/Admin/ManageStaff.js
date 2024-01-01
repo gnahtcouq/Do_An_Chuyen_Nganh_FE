@@ -158,21 +158,52 @@ class ManageStaff extends Component {
 
   handleChangeSelect = async (selectedOption) => {
     this.setState({selectedOption})
+
+    let {listPrice, listPayment} = this.state
+
     let res = await getDetailInfoStaff(selectedOption.value)
     if (res && res.errCode === 0 && res.data && res.data.Markdown) {
       let markdown = res.data.Markdown
+
+      let priceId = '',
+        paymentId = '',
+        note = '',
+        selectedPrice = '',
+        selectedPayment = ''
+
+      if (res.data.Staff_Info) {
+        priceId = res.data.Staff_Info.priceId
+        paymentId = res.data.Staff_Info.paymentId
+        note = res.data.Staff_Info.note
+
+        selectedPrice = listPrice.find((item) => {
+          return item && item.value === priceId
+        })
+        selectedPayment = listPayment.find((item) => {
+          return item && item.value === paymentId
+        })
+      }
+
       this.setState({
         description: markdown.description,
         contentHTML: markdown.contentHTML,
         contentMarkdown: markdown.contentMarkdown,
-        hasOldData: true
+        hasOldData: true,
+
+        selectedPrice: selectedPrice,
+        selectedPayment: selectedPayment,
+        note: note
       })
     } else {
       this.setState({
         description: '',
         contentHTML: '',
         contentMarkdown: '',
-        hasOldData: false
+        hasOldData: false,
+
+        priceId: '',
+        paymentId: '',
+        note: ''
       })
     }
   }

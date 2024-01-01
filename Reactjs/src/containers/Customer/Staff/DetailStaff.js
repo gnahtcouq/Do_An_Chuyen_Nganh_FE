@@ -5,6 +5,7 @@ import './DetailStaff.scss'
 import {getDetailInfoStaff} from '../../../services/userService'
 import {LANGUAGES} from '../../../utils'
 import StaffSchedule from './StaffSchedule'
+import StaffExtraInfo from './StaffExtraInfo'
 
 class DetailStaff extends Component {
   constructor(props) {
@@ -77,7 +78,9 @@ class DetailStaff extends Component {
             <div className="content-left">
               <StaffSchedule staffIdFromParent={this.state.currentStaffId} />
             </div>
-            <div className="content-right"></div>
+            <div className="content-right">
+              <StaffExtraInfo staffIdFromParent={this.state.currentStaffId} />
+            </div>
           </div>
           <div className="detail-info-staff">
             {detailStaff &&
