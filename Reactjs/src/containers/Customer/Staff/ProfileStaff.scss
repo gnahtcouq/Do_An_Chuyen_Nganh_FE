@@ -1,0 +1,35 @@
+.profile-staff-container {
+    .intro-staff {
+        display: flex;
+
+        .content-left {
+            width                 : 80px;
+            height                : 80px;
+            background-position   : center center;
+            background-repeat     : no-repeat !important;
+            background-size       : cover;
+            background-color      : #eee;
+            border-radius         : 50%;
+            // margin             : 10px 20px;
+        }
+
+        .content-right {
+            width         : 80%;
+            display       : flex;
+            flex-direction: column;
+            padding-left  : 10px;
+
+            .up {
+                font-weight: 600;
+            }
+
+            .down {
+                text-align: justify;
+            }
+        }
+    }
+
+    .price {
+        margin: 5px 0;
+    }
+}

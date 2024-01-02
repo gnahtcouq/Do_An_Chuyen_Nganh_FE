@@ -60,6 +60,10 @@ const getExtraInfoStaffById = (staffId) => {
   return axios.get(`/api/get-extra-info-staff-by-id?staffId=${staffId}`)
 }
 
+const getProfileStaffById = (staffId) => {
+  return axios.get(`/api/get-profile-staff-by-id?staffId=${staffId}`)
+}
+
 export {
   handleLoginApi,
   getAllUsers,
@@ -73,5 +77,6 @@ export {
   getDetailInfoStaff,
   saveBulkScheduleStaff,
   getScheduleStaffByDate,
-  getExtraInfoStaffById
+  getExtraInfoStaffById,
+  getProfileStaffById
 }
