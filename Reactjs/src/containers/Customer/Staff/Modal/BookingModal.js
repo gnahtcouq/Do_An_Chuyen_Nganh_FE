@@ -39,7 +39,11 @@ class BookingModal extends Component {
           </div>
           <div className="booking-modal-body">
             <div className="staff-info">
-              <ProfileStaff staffId={staffId} />
+              <ProfileStaff
+                staffId={staffId}
+                isShowDescriptionStaff={false}
+                dataTime={dataTime}
+              />
             </div>
 
             <div className="row">
