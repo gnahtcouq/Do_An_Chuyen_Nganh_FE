@@ -56,6 +56,10 @@ const getScheduleStaffByDate = (staffId, date) => {
   )
 }
 
+const getExtraInfoStaffById = (staffId) => {
+  return axios.get(`/api/get-extra-info-staff-by-id?staffId=${staffId}`)
+}
+
 export {
   handleLoginApi,
   getAllUsers,
@@ -68,5 +72,6 @@ export {
   saveDetailStaffService,
   getDetailInfoStaff,
   saveBulkScheduleStaff,
-  getScheduleStaffByDate
+  getScheduleStaffByDate,
+  getExtraInfoStaffById
 }

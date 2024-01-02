@@ -2,14 +2,15 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import './StaffExtraInfo.scss'
 import {LANGUAGES} from '../../../utils'
-import {getScheduleStaffByDate} from '../../../services/userService'
+import {getExtraInfoStaffById} from '../../../services/userService'
 import {FormattedMessage} from 'react-intl'
 
 class StaffExtraInfo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isShowDetailInfo: false
+      isShowDetailInfo: false,
+      extraInfo: {}
     }
   }
 
@@ -17,6 +18,14 @@ class StaffExtraInfo extends Component {
 
   async componentDidUpdate(prevProps, prevState) {
     if (prevProps.language !== this.props.language) {
+    }
+    if (this.props.staffIdFromParent !== prevProps.staffIdFromParent) {
+      let res = await getExtraInfoStaffById(this.props.staffIdFromParent)
+      if (res && res.errCode === 0) {
+        this.setState({
+          extraInfo: res.data
+        })
+      }
     }
   }
 
@@ -27,7 +36,8 @@ class StaffExtraInfo extends Component {
   }
 
   render() {
-    let {isShowDetailInfo} = this.state
+    let {isShowDetailInfo, extraInfo} = this.state
+    console.log('state', this.state)
 
     return (
       <div className="staff-extra-info-container">
