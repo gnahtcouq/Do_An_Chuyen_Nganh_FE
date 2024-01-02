@@ -17,10 +17,14 @@
     }
 
     .content-down {
-        .show-detail {
-            span {
+        .short-info {
+            .detail {
                 cursor: pointer;
                 color : rgba(72, 196, 211, 1.00);
+            }
+
+            .currency {
+                margin: 0 5px;
             }
         }
 

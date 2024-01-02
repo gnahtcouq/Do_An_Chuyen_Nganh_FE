@@ -39,7 +39,7 @@ class DetailStaff extends Component {
   componentDidUpdate(prevProps, prevState) {}
 
   render() {
-    console.log('state', this.state)
+    // console.log('state', this.state)
     let {language} = this.props
     let {detailStaff} = this.state
     let nameVi = '',

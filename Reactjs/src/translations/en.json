@@ -60,6 +60,12 @@
             "no-schedule": "No schedule!",
             "choose": "Choose ",
             "booking-free": " and schedule a free appointment"
+        },
+        "extra-info-staff": {
+            "price": "Service charge: ",
+            "detail": "Show details",
+            "payment": "A payment can be made in the form of: ",
+            "hide-price": "Hide details"
         }
     },
     "admin": {

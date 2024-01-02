@@ -4,6 +4,7 @@ import './StaffExtraInfo.scss'
 import {LANGUAGES} from '../../../utils'
 import {getExtraInfoStaffById} from '../../../services/userService'
 import {FormattedMessage} from 'react-intl'
+import NumberFormat from 'react-number-format'
 
 class StaffExtraInfo extends Component {
   constructor(props) {
@@ -37,7 +38,8 @@ class StaffExtraInfo extends Component {
 
   render() {
     let {isShowDetailInfo, extraInfo} = this.state
-    console.log('state', this.state)
+    let {language} = this.props
+    // console.log('state', this.state)
 
     return (
       <div className="staff-extra-info-container">
@@ -51,33 +53,95 @@ class StaffExtraInfo extends Component {
         </div>
         <div className="content-down">
           {isShowDetailInfo === false && (
-            <div className="show-detail">
-              Giá dịch vụ 250.000đ.
-              <span onClick={() => this.showHideDetailInfo(true)}>
+            <div className="short-info">
+              <FormattedMessage id="customer.extra-info-staff.price" />
+              {extraInfo &&
+                extraInfo.priceTypeData &&
+                language === LANGUAGES.VI && (
+                  <NumberFormat
+                    className="currency"
+                    value={extraInfo.priceTypeData.valueVi}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    suffix={'VNĐ'}
+                  />
+                )}
+              {extraInfo &&
+                extraInfo.priceTypeData &&
+                language === LANGUAGES.EN && (
+                  <NumberFormat
+                    className="currency"
+                    value={extraInfo.priceTypeData.valueEn}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    suffix={'$'}
+                  />
+                )}
+              <span
+                className="detail"
+                onClick={() => this.showHideDetailInfo(true)}
+              >
                 {' '}
-                Xem chi tiết
+                <FormattedMessage id="customer.extra-info-staff.detail" />
               </span>
             </div>
           )}
+
           {isShowDetailInfo === true && (
             <>
-              <div className="title-price">Giá dịch vụ</div>
+              <div className="title-price">
+                <FormattedMessage id="customer.extra-info-staff.price" />
+              </div>
               <div className="detail-price">
                 <div className="price">
-                  <span className="left">Giá dịch vụ</span>
-                  <span className="right">250.000đ</span>
+                  <span className="left">
+                    <FormattedMessage id="customer.extra-info-staff.price" />
+                  </span>
+                  <span className="right">
+                    {extraInfo &&
+                      extraInfo.priceTypeData &&
+                      language === LANGUAGES.VI && (
+                        <NumberFormat
+                          className="currency"
+                          value={extraInfo.priceTypeData.valueVi}
+                          displayType={'text'}
+                          thousandSeparator={true}
+                          suffix={'VNĐ'}
+                        />
+                      )}
+                    {extraInfo &&
+                      extraInfo.priceTypeData &&
+                      language === LANGUAGES.EN && (
+                        <NumberFormat
+                          className="currency"
+                          value={extraInfo.priceTypeData.valueEn}
+                          displayType={'text'}
+                          thousandSeparator={true}
+                          suffix={'$'}
+                        />
+                      )}
+                  </span>
                 </div>
                 <div className="note">
-                  Được ưu tiên khi đặt lịch qua website Pet Cưng
+                  {extraInfo && extraInfo.note ? extraInfo.note : ''}
                 </div>
               </div>
               <div className="payment">
-                Khách hàng có thể thanh toán chi phí bằng hình thức tiền mặt
-                hoặc quẹt thẻ
+                <FormattedMessage id="customer.extra-info-staff.payment" />
+                {extraInfo &&
+                extraInfo.paymentTypeData &&
+                language === LANGUAGES.VI
+                  ? extraInfo.paymentTypeData.valueVi
+                  : ''}
+                {extraInfo &&
+                extraInfo.paymentTypeData &&
+                language === LANGUAGES.EN
+                  ? extraInfo.paymentTypeData.valueEn
+                  : ''}
               </div>
               <div className="hide-price">
                 <span onClick={() => this.showHideDetailInfo(false)}>
-                  Ẩn bảng giá
+                  <FormattedMessage id="customer.extra-info-staff.hide-price" />
                 </span>
               </div>
             </>

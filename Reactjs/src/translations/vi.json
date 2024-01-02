@@ -60,6 +60,12 @@
             "no-schedule": "Chưa có lịch hẹn nào!",
             "choose" : "Chọn ",
             "booking-free": " và đặt lịch hẹn miễn phí"
+        },
+        "extra-info-staff": {
+            "price": "Phí dịch vụ: ",
+            "detail": "Xem chi tiết",
+            "payment": "Phương thức thanh toán: ",
+            "hide-price": "Ẩn"
         }
     },
     "admin": {

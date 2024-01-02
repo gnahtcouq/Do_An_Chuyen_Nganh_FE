@@ -83,7 +83,7 @@ class StaffSchedule extends Component {
           allAvailableTime: res.data ? res.data : []
         })
       }
-      console.log('check res', res)
+      // console.log('check res', res)
     }
   }
 
