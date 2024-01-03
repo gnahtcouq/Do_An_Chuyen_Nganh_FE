@@ -62,10 +62,23 @@
             "booking-free": " và đặt lịch hẹn miễn phí"
         },
         "extra-info-staff": {
-            "price": "Phí dịch vụ: ",
+            "price": "Giá dịch vụ",
             "detail": "Xem chi tiết",
             "payment": "Phương thức thanh toán: ",
             "hide-price": "Ẩn"
+        },
+        "booking-modal": {
+            "title": "Thông tin đặt lịch",
+            "fullName": "Họ và tên",
+            "phoneNumber": "Số điện thoại",
+            "email": "Email",
+            "address": "Địa chỉ",
+            "birthday": "Ngày sinh",
+            "gender":"Giới tính",
+            "btnConfirm": "Xác nhận",
+            "btnCancel": "Huỷ bỏ",
+            "priceBooking": "Miễn phí đặt lịch",
+            "price":"Giá dịch vụ: "
         }
     },
     "admin": {
@@ -76,7 +89,7 @@
             "add": "Tạo thông tin",
             "save": "Lưu thông tin",
             "cancel": "Huỷ bỏ",
-            "price": "Giá",
+            "price": "Giá dịch vụ ",
             "payment": "Phương thức thanh toán",
             "note": "Ghi chú"
         }

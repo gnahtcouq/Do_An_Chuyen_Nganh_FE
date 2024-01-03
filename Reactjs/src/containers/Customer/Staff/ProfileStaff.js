@@ -61,7 +61,9 @@ class ProfileStaff extends Component {
           <div>
             {time} - {date}
           </div>
-          <div>Miễn phí đặt lịch</div>
+          <div>
+            <FormattedMessage id="customer.booking-modal.priceBooking" />
+          </div>
         </>
       )
     }
@@ -112,7 +114,7 @@ class ProfileStaff extends Component {
         </div>
 
         <div className="price">
-          <FormattedMessage id="customer.extra-info-staff.price" />
+          <FormattedMessage id="customer.booking-modal.price" />
           {dataProfile &&
             dataProfile.Staff_Info &&
             language === LANGUAGES.VI && (

@@ -64,6 +64,10 @@ const getProfileStaffById = (staffId) => {
   return axios.get(`/api/get-profile-staff-by-id?staffId=${staffId}`)
 }
 
+const postCustomerBookAppointment = (data) => {
+  return axios.post('/api/customer-book-appointment', data)
+}
+
 export {
   handleLoginApi,
   getAllUsers,
@@ -78,5 +82,6 @@ export {
   saveBulkScheduleStaff,
   getScheduleStaffByDate,
   getExtraInfoStaffById,
-  getProfileStaffById
+  getProfileStaffById,
+  postCustomerBookAppointment
 }

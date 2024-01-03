@@ -62,10 +62,23 @@
             "booking-free": " and schedule a free appointment"
         },
         "extra-info-staff": {
-            "price": "Service charge: ",
+            "price": "Price charge:",
             "detail": "Show details",
             "payment": "A payment can be made in the form of: ",
             "hide-price": "Hide details"
+        },
+        "booking-modal": {
+            "title": "Booking information",
+            "fullName": "Full name",
+            "phoneNumber": "Phone number",
+            "email": "Email",
+            "address": "Address",
+            "birthday": "Date of birth",
+            "gender": "Gender",
+            "btnConfirm": "Confirm",
+            "btnCancel": "Cancel",
+            "priceBooking": "Free booking",
+            "price":"Price charge: "
         }
     },
     "admin": {
