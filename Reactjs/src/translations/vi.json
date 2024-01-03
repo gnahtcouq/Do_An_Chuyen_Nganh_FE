@@ -22,7 +22,8 @@
             "manage-room": "Quản lý phòng"
         },
         "staff": {
-            "manage-schedule": "Quản lý lịch hẹn"
+            "manage-schedule": "Quản lý lịch hẹn",
+            "manage-customer": "Quản lý khách hàng"
         }
     },
     "manage-user": {

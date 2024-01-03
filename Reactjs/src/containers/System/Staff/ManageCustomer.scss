@@ -1,0 +1,29 @@
+.manage-customer-container {
+    .manage-customer-title {
+        font-size     : 22px;
+        font-weight   : 600;
+        margin        : 10px 0;
+        text-align    : center;
+        text-transform: uppercase;
+    }
+
+    .manage-customer-body {
+        padding: 0 20px;
+
+        .table-manage-customer {
+
+            table,
+            th,
+            td {
+                border         : 1px solid #ccc;
+                border-collapse: collapse;
+            }
+
+            th,
+            td {
+                padding   : 10px;
+                text-align: left;
+            }
+        }
+    }
+}

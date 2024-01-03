@@ -124,6 +124,15 @@ class BookingModal extends Component {
     if (res && res.errCode === 0) {
       toast.success('Đặt lịch thành công')
       this.props.closeBookingClose()
+
+      this.setState({
+        fullName: '',
+        phoneNumber: '',
+        email: '',
+        address: '',
+        birthday: '',
+        selectedGender: ''
+      })
     } else {
       toast.error('Đặt lịch thất bại')
     }

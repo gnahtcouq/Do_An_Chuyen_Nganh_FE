@@ -22,7 +22,8 @@
             "manage-room": "Manage rooms"
         },
         "staff": {
-            "manage-schedule": "Manage schedule"
+            "manage-schedule": "Manage schedule",
+            "manage-customer": "Manage customer"
         }
     },
     "manage-user": {

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import ManageSchedule from '../containers/System/Staff/ManageSchedule'
 import Header from '../containers/Header/Header'
+import ManageCustomer from '../containers/System/Staff/ManageCustomer'
 
 class Staff extends Component {
   render() {
@@ -14,6 +15,7 @@ class Staff extends Component {
           <div className="system-list">
             <Switch>
               <Route path="/staff/manage-schedule" component={ManageSchedule} />
+              <Route path="/staff/manage-customer" component={ManageCustomer} />
             </Switch>
           </div>
         </div>

@@ -48,9 +48,14 @@ export const staffMenu = [
     name: 'menu.admin.manage-user',
     menus: [
       {
-        //quản lý lịch hẹn
+        // quản lý lịch hẹn
         name: 'menu.staff.manage-schedule',
         link: '/staff/manage-schedule'
+      },
+      {
+        // quản lý khách hàng đặt lịch
+        name: 'menu.staff.manage-customer',
+        link: '/staff/manage-customer'
       }
     ]
   }
