@@ -3,28 +3,65 @@ import {connect} from 'react-redux'
 import {FormattedMessage} from 'react-intl'
 import './ManageCustomer.scss'
 import DatePicker from '../../../components/Input/DatePicker'
+import {getAllCustomerForStaff} from '../../../services/userService'
+import moment from 'moment'
 
 class ManageCustomer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentDate: new Date()
+      currentDate: moment(new Date()).startOf('day').valueOf(),
+      dataCustomer: []
     }
   }
 
-  async componentDidMount() {}
+  async componentDidMount() {
+    let {user} = this.props
+    let {currentDate} = this.state
+    let formatedDate = new Date(currentDate).getTime()
+    this.getDataCustomer(user, formatedDate)
+  }
 
-  componentDidUpdate(prevProps, prevState) {
+  getDataCustomer = async (user, formatedDate) => {
+    let res = await getAllCustomerForStaff({
+      staffId: user.id,
+      date: formatedDate
+    })
+    if (res && res.errCode === 0) {
+      this.setState({
+        dataCustomer: res.data
+      })
+    }
+    console.log('getDataCustomer', res)
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
     if (this.props.language !== prevProps.language) {
     }
   }
 
   handleOnChangeDatePicker = (date) => {
-    this.setState({
-      currentDate: date[0]
-    })
+    this.setState(
+      {
+        currentDate: date[0]
+      },
+      () => {
+        let {user} = this.props
+        let {currentDate} = this.state
+        let formatedDate = new Date(currentDate).getTime()
+        this.getDataCustomer(user, formatedDate)
+      }
+    )
   }
+
+  handleBtnConfirm = () => {}
+
+  handleBtnRemedy = () => {}
+
   render() {
+    // console.log('dataCustomer', this.props)
+
+    let {dataCustomer} = this.state
     return (
       <div className="manage-customer-container">
         <div className="manage-customer-title">Quản lý lịch hẹn</div>
@@ -32,23 +69,53 @@ class ManageCustomer extends Component {
           <div className="col-4 form-group">
             <label>Chọn ngày</label>
             <DatePicker
-              value={this.state.currentDate}
               onChange={this.handleOnChangeDatePicker}
               className="form-control"
+              value={this.state.currentDate}
             />
           </div>
 
           <div className="col-12 table-manage-customer">
             <table style={{width: '100%'}}>
-              <tr>
-                <th>Name</th>
-                <th colSpan="2">Telephone</th>
-              </tr>
-              <tr>
-                <td>B</td>
-                <td>A</td>
-                <td>C</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th>STT</th>
+                  <th>Thời gian</th>
+                  <th>Họ và tên</th>
+                  <th>Địa chỉ</th>
+                  <th>Giới tính</th>
+                  <th>Hành động</th>
+                </tr>
+                {dataCustomer && dataCustomer.length > 0 ? (
+                  dataCustomer.map((item, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.timeTypeDataCustomer.valueVi}</td>
+                        <td>{item.customerData.firstName}</td>
+                        <td>{item.customerData.address}</td>
+                        <td>{item.customerData.genderData.valueVi}</td>
+                        <td>
+                          <button
+                            className="btn btn-primary"
+                            onClick={() => this.handleBtnConfirm(item)}
+                          >
+                            Xác nhận
+                          </button>
+                          <button
+                            className="btn btn-warning"
+                            onClick={() => this.handleBtnRemedy(item)}
+                          >
+                            Gửi hoá đơn
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  })
+                ) : (
+                  <tr>Không có dữ liệu</tr>
+                )}
+              </tbody>
             </table>
           </div>
         </div>
@@ -59,7 +126,8 @@ class ManageCustomer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    language: state.app.language
+    language: state.app.language,
+    user: state.user.userInfo
   }
 }
 
