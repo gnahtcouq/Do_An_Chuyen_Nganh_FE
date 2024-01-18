@@ -117,9 +117,9 @@ class ManageSchedule extends Component {
       return
     }
 
-    // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+    // let formattedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
     //  = moment(currentDate).unix()
-    let formatedDate = new Date(currentDate).getTime()
+    let formattedDate = new Date(currentDate).getTime()
 
     if (rangeTime && rangeTime.length > 0) {
       let selectedTime = rangeTime.filter((item) => item.isSelected === true)
@@ -128,7 +128,7 @@ class ManageSchedule extends Component {
           // console.log('check schedule', schedule, index, selectedStaff)
           let object = {}
           object.staffId = selectedStaff.value
-          object.date = formatedDate
+          object.date = formattedDate
           object.timeType = schedule.keyMap
           result.push(object)
         })
@@ -141,7 +141,7 @@ class ManageSchedule extends Component {
     let res = await saveBulkScheduleStaff({
       arrSchedule: result,
       staffId: selectedStaff.value,
-      formatedDate: formatedDate
+      formattedDate: formattedDate
     })
 
     if (res && res.errCode === 0) {
@@ -164,7 +164,7 @@ class ManageSchedule extends Component {
     return (
       <React.Fragment>
         <div className="manage-schedule-container">
-          <div className="m-s-title">
+          <div className="manage-schedule-title">
             <FormattedMessage id="manage-schedule.title" />
           </div>
           <div className="container">

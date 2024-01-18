@@ -74,8 +74,12 @@ const postVerifyBookAppointment = (data) => {
 
 const getAllCustomerForStaff = (data) => {
   return axios.get(
-    `/api/get-list-customer-for-staff?staffId=${data.staffId}&date={data.date}`
+    `/api/get-list-customer-for-staff?staffId=${data.staffId}&date=${data.date}`
   )
+}
+
+const postSendRemedy = (data) => {
+  return axios.post('/api/send-remedy', data)
 }
 
 export {
@@ -95,5 +99,6 @@ export {
   getProfileStaffById,
   postCustomerBookAppointment,
   postVerifyBookAppointment,
-  getAllCustomerForStaff
+  getAllCustomerForStaff,
+  postSendRemedy
 }
